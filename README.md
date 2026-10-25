@@ -12,20 +12,26 @@ Das Framework läuft in clientbasierten Agenten-Tools: Claude Code, OpenAI Codex
    git clone https://github.com/funkpunkt/segel-ai-framework.git
    ```
 
-2. Jeden Ordner unter `skills/` in den persönlichen Skills-Ordner des Tools verlinken:
+2. Skills verlinken:
 
-   | Tool           | Persönlicher Skills-Ordner |
-   |----------------|----------------------------|
-   | Claude Code    | `~/.claude/skills/`        |
-   | OpenAI Codex   | `~/.agents/skills/`        |
-   | GitHub Copilot | `~/.copilot/skills/` oder `~/.agents/skills/` |
-
-   Beispiel unter Windows (PowerShell, ohne Adminrechte über eine Verzeichnisverknüpfung):
-
-   ```powershell
-   New-Item -ItemType Junction -Path "$HOME\.claude\skills\segel-unterrichtskonzept" -Target "C:\Pfad\zu\segel-ai-framework\skills\segel-unterrichtskonzept"
+   ```bash
+   python setup.py install
    ```
 
-   Durch die Verlinkung kommen Updates mit `git pull` automatisch an.
+   Das Skript verlinkt jeden Ordner unter `skills/` nach `~/.claude/skills/` (Claude Code) und `~/.agents/skills/` (OpenAI Codex, GitHub Copilot). Unter Windows nutzt es Verzeichnisverknüpfungen, die keine Adminrechte brauchen. Updates kommen mit `git pull` automatisch an.
 
-Ein Setup-Skript, das diese Verlinkung und die Dateien `CLAUDE.md` bzw. `AGENTS.md` automatisch erzeugt, ist in Arbeit.
+3. Für jedes neue Material einen Projektordner anlegen:
+
+   ```bash
+   python setup.py projekt <ordner>
+   ```
+
+   Das legt `AGENTS.md`, `CLAUDE.md` sowie die Unterordner `quellen/` und `ausgabe/` an. Danach das Agenten-Tool in diesem Ordner starten und das gewünschte Material beschreiben.
+
+## Nutzung ohne Installation (Cloud-Umgebungen)
+
+In Cloud-Umgebungen mit geklontem Repo (z. B. claude.ai-Projekte mit Code-Ausführung) entfällt die Installation. Dem Agenten zu Beginn sagen:
+
+> Arbeite nach `segel-ai-framework/skills/segel-material-erstellen/SKILL.md`. Die Prüfskripte liegen im Unterordner `scripts/` dieses Skills.
+
+Genutzt wird dabei der Stand, der auf GitHub liegt.
