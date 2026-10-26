@@ -19,7 +19,9 @@ Grundlage für die Beratung in Phase 1 und für die Durchsicht von Entwürfen. I
 | A11 | Längste Antwort ist richtig | Die richtige Option ist als einzige lang, begründet oder differenziert | Alle Optionen gleich lang und gleich begründet formulieren |
 | A12 | Ungeklärte Voraussetzung | Aufgabe verlangt einen Befehl, Begriff oder eine Option, die vorher nirgends eingeführt wurde | Vor der ersten Aufgabe einführen, z. B. mit Befehlskasten (M11) |
 | A13 | Simulation aus dem Gedächtnis | Simulierte Ausgaben, Meldungen oder Oberflächen sind nachempfunden statt aus der echten Zielversion übernommen | Referenzinstallation, Rohausgaben unter `quellen/referenz/` ablegen |
-| A14 | Lückenhafte Simulation | Eingebaute Hilfe (`--help`) fehlt, Shell-Verkettung führt zu unsinnigen Folgefehlern, typische Fehleingaben ohne hilfreiche Meldung | Hilfe originalgetreu, `&&`/`\|\|`/`;` nachbilden, Nicht-Nachgebildetes klar melden |
+| A14 | Lückenhafte Simulation | Eingebaute Hilfe (`--help`) fehlt, Shell-Verkettung führt zu unsinnigen Folgefehlern, typische Fehleingaben ohne hilfreiche Meldung, Konfigurationsdatei nicht bearbeitbar oder nur per Zeichenkettenvergleich geprüft | Hilfe originalgetreu, `&&`/`\|\|`/`;` nachbilden, Nicht-Nachgebildetes klar melden, Editor nachbilden und Datei wirklich parsen |
+| A15 | Sackgasse | Lernende können etwas irreversibel kaputtmachen (Datei verhunzt, Image gelöscht, Prozess hängt) und kommen nicht zurück | Knopf „Seite zurücksetzen“; im Durchlauftest je Seite einmal kaputtmachen und zurücksetzen |
+| A16 | Verfallende Rückfrage | Bestätigung („Wirklich zurücksetzen?“) verfällt nach wenigen Sekunden, der Knopf wirkt kaputt | Rückfrage gilt bis zur nächsten Aktion bzw. bis zum Neuzeichnen |
 
 ## Aktivierungsmuster
 

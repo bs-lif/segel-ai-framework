@@ -15,6 +15,7 @@ Diese Grundsätze gelten für jedes Material und in jeder Phase:
 - **Nichts verlangen, was nicht eingeführt ist.** Jeder Befehl, Begriff und jede Option, die eine Aufgabe erwartet, kommt vorher im Material vor (Katalog A12).
 - **Nicht ratbar.** Antwortreihenfolge von Auswahl- und Zuordnungsaufgaben bei jedem Durchlauf neu mischen (A10). Antwortoptionen gleich lang und gleich begründet formulieren (A11). Auswahllisten grammatisch zu jeder Zeile passend formulieren, solange das keine Antwort verrät.
 - **Rückmeldung am tatsächlichen Zustand.** Hinweise und Hilfen richten sich nach dem, was der Lernende wirklich getan hat, nicht nach dem erwarteten Weg – Lernende greifen vor. Typische Fehleingaben je Aufgabe vorab sammeln und mit verständlichem Hinweis abfangen; Tippfehler von inhaltlich falschen Antworten unterscheiden.
+- **Zurücksetzbar.** Überall, wo Lernende in einer Simulation etwas irreversibel kaputtmachen können (Konfigurationsdatei verhunzt, benötigtes Image oder Volume gelöscht, Prozess im Vordergrund hängt), gibt es einen Weg zurück, z. B. einen Knopf „Seite zurücksetzen“ (A15). Bestätigungs-Rückfragen verfallen nicht nach Sekunden, sondern gelten bis zur nächsten Aktion (A16).
 - **Echt statt aus dem Gedächtnis.** Simulierte Ausgaben, Hilfetexte, Fehlermeldungen und Oberflächen stammen aus einer echten Installation der Zielversion (A13). Was nicht aus einer Referenz stammt, ist als Annahme gekennzeichnet.
 
 ## Projektordner und Statusdatei
@@ -34,13 +35,13 @@ Diese Grundsätze gelten für jedes Material und in jeder Phase:
 
 ## Phase 2: Entwurfszyklen
 
-Vor dem ersten Zyklus bei Simulationen (Konsole, Web-Anwendung): **Referenzinstallation.** Die Zielsoftware in der Zielversion echt ausführen (falls in der Umgebung möglich; sonst die Lehrkraft um Rohausgaben bitten) und alle benötigten Ausgaben, Hilfetexte (`--help`, `-h`), Fehlermeldungen bzw. HTML-Seiten und Screenshots unter `quellen/referenz/` ablegen. Lange Wartezeiten der echten Software dürfen verkürzt werden – als Entscheidung der Lehrkraft vorlegen.
+Vor dem ersten Zyklus bei Simulationen (Konsole, Web-Anwendung): **Referenzinstallation.** Die Zielsoftware in der Zielversion echt ausführen (falls in der Umgebung möglich; sonst die Lehrkraft um Rohausgaben bitten) und alle benötigten Ausgaben, Hilfetexte (`--help`, `-h`), Fehlermeldungen bzw. HTML-Seiten und Screenshots unter `quellen/referenz/` ablegen. Dazu gehören die Fehlermeldungen für typische Fehler der Lernenden (bei Konfigurationsdateien: Einrückung, Tippfehler im Schlüssel, falscher Typ). Ausgaben, die von der Terminalbreite abhängen (Fortschrittsanzeigen), in der Spaltenbreite der simulierten Konsole aufnehmen (pty mit fester Spaltenzahl). Lange Wartezeiten der echten Software dürfen verkürzt werden – als Entscheidung der Lehrkraft vorlegen.
 
 Je Abschnitt der Gliederung ein Zyklus (bei kleinem Material genügt einer):
 
 1. Entwurf erstellen. Bei interaktiven Paketen mit Simulation zuerst das Szenario als Datenstruktur (z. B. `quellen/szenario.json`) anlegen; Fragen, erwartete Antworten und Simulationsausgaben werden daraus erzeugt, nie getrennt gepflegt.
 2. Bei interaktiven Paketen statt einer Text-Skizze früh einen **spielbaren Prototyp** zeigen; die Skizze dient nur als Kurzfassung.
-3. Konsolen-Simulationen bilden mindestens nach: die eingebaute Hilfe des Werkzeugs (originalgetreu), Shell-Verkettung (`&&`, `||`, `;`) und typische Fehleingaben. Nicht nachgebildete Syntax (z. B. Pipes, `$( )`) wird klar als solche gemeldet, statt unsinnige Folgefehler zu erzeugen.
+3. Konsolen-Simulationen bilden mindestens nach: die eingebaute Hilfe des Werkzeugs (originalgetreu), Shell-Verkettung (`&&`, `||`, `;`) und typische Fehleingaben. Nicht nachgebildete Syntax (z. B. Pipes, `$( )`) wird klar als solche gemeldet, statt unsinnige Folgefehler zu erzeugen. Müssen Lernende Konfigurationsdateien bearbeiten, wird ein Editor nachgebildet (z. B. nano mit originalen Tastenkürzeln und Rückfragen) und die Datei wirklich geparst, statt erwartete Zeichenketten zu vergleichen.
 4. Lokale Prüfungen ausführen, solange der Abschnitt im Kontext ist (siehe „Prüfskripte“). Gefundene Fehler sofort beheben.
 5. Entwurf kurz vorstellen (was ist neu, welche Aktivierung, was ist offen) und Rückmeldung einholen.
 6. Änderungen einarbeiten, Abschnitt in `STATUS.md` als erledigt markieren.
@@ -50,7 +51,7 @@ Je Abschnitt der Gliederung ein Zyklus (bei kleinem Material genügt einer):
 1. Globale Prüfungen über das ganze Material ausführen.
 2. Biete die folgenden Bausteine einzeln an. Gib je Baustein eine Empfehlung als Vorauswahl (z. B. Schülerdurchlauf bei interaktiven Paketen immer empfehlen) und frage, welche ausgeführt werden sollen:
    - **Abnahmebericht** nach `templates/ABNAHMEBERICHT.md`: Abdeckung der Lernziele, Interaktionen, geschätzte Bearbeitungszeit, Prüfergebnisse, bewusst offene Punkte.
-   - **Simulierter Schülerdurchlauf** mit frischem Kontext (Subagent, falls das Tool das kann; sonst neue Session), einmal als schwacher, einmal als starker Schüler, möglichst auch als „vorgreifender“ Schüler, der Schritte überspringt. Der Subagent bekommt nur die Oberfläche des Materials, keine Lösungen, keinen Quelltext und keinen Projektverlauf. Jeder Durchlauf bekommt einen eigenen Arbeitsordner und eigene Ports, damit parallele Läufe sich nicht stören. Gesucht: Hänger ohne hilfreiche Rückmeldung, Langeweile, Mehrdeutigkeiten, Stellen, an denen man durch Raten durchkommt, Zeitbedarf. Befunde zu Simulationen vor dem Einbau an der Referenzinstallation prüfen.
+   - **Simulierter Schülerdurchlauf** mit frischem Kontext (Subagent, falls das Tool das kann; sonst neue Session), einmal als schwacher, einmal als starker Schüler, möglichst auch als „vorgreifender“ Schüler, der Schritte überspringt. Der Subagent bekommt nur die Oberfläche des Materials, keine Lösungen, keinen Quelltext und keinen Projektverlauf. Jeder Durchlauf bekommt einen eigenen Arbeitsordner (auch für Hilfsdateien) und eigene Ports, damit parallele Läufe sich nicht stören. Gesucht: Hänger ohne hilfreiche Rückmeldung, Sackgassen (wo kann man sich festfahren, und wie kommt man zurück?), Langeweile, Mehrdeutigkeiten, Stellen, an denen man durch Raten durchkommt, Zeitbedarf. Befunde zu Simulationen vor dem Einbau an der Referenzinstallation prüfen.
    - **Checkliste für die manuelle Prüfung**: nur riskante oder neue Stellen, je Punkt Fundstelle und worauf zu achten ist.
 3. Die Abnahme durch die Lehrkraft findet immer statt. Erst nach ihrer Freigabe weiter.
 
