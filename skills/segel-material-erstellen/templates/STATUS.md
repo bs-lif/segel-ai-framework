@@ -2,7 +2,7 @@
 
 - Materialart: <z. B. SCORM-Paket>
 - Zielgruppe: <Klasse, Vorwissen>
-- Lernzeit: <geplant>
+- Gesamtzeit: <min, inkl. Input, Übung, Selbstüberprüfung und Vertiefung>
 - Phase: Beratung
 
 ## Lernziele
@@ -11,9 +11,12 @@
 
 ## Gliederung
 
-| Nr. | Abschnitt | Aktivierung (Muster-ID) | Stand |
-|---|---|---|---|
-| 1 |  |  | offen |
+Die Summe der Zeitspalte entspricht der Gesamtzeit.
+
+| Nr. | Abschnitt | Aktivierung (Muster-ID) | Zeit (min) | Stand |
+|---|---|---|---|---|
+| 1 |  |  |  | offen |
+|  | **Summe** |  | **0** |  |
 
 ## Entscheidungen
 

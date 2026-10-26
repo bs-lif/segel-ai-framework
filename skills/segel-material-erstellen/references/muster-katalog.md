@@ -15,6 +15,11 @@ Grundlage für die Beratung in Phase 1 und für die Durchsicht von Entwürfen. I
 | A7 | Sammel-Checkpunkt | Checklistenpunkt enthält mehrere Fähigkeiten oder ist nicht prüfbar | Ein „Ich kann …“ je Fähigkeit, beobachtbares Verb |
 | A8 | Reine Wiedergabe | Fragen fragen nur Begriffe oder Definitionen ab | Anwendung, Fehlersuche, Transfer (M2, M5) |
 | A9 | Doppelte Wahrheit | Simulation, Fragen und Lösungen werden getrennt gepflegt | Ein Szenario als Datenstruktur, alles daraus erzeugen |
+| A10 | Feste Reihenfolge | Antworten oder Zuordnungen stehen bei jedem Aufruf gleich, z. B. richtige Zuordnung auf der Diagonale | Reihenfolge bei jedem Durchlauf neu mischen |
+| A11 | Längste Antwort ist richtig | Die richtige Option ist als einzige lang, begründet oder differenziert | Alle Optionen gleich lang und gleich begründet formulieren |
+| A12 | Ungeklärte Voraussetzung | Aufgabe verlangt einen Befehl, Begriff oder eine Option, die vorher nirgends eingeführt wurde | Vor der ersten Aufgabe einführen, z. B. mit Befehlskasten (M11) |
+| A13 | Simulation aus dem Gedächtnis | Simulierte Ausgaben, Meldungen oder Oberflächen sind nachempfunden statt aus der echten Zielversion übernommen | Referenzinstallation, Rohausgaben unter `quellen/referenz/` ablegen |
+| A14 | Lückenhafte Simulation | Eingebaute Hilfe (`--help`) fehlt, Shell-Verkettung führt zu unsinnigen Folgefehlern, typische Fehleingaben ohne hilfreiche Meldung | Hilfe originalgetreu, `&&`/`\|\|`/`;` nachbilden, Nicht-Nachgebildetes klar melden |
 
 ## Aktivierungsmuster
 
@@ -30,3 +35,4 @@ Grundlage für die Beratung in Phase 1 und für die Durchsicht von Entwürfen. I
 | M8 | Challenge mit Prüfbefehl | Kleines Ziel, dessen Erreichen ein Befehl oder Test belegt | Praktische Übungen, Selbstüberprüfung |
 | M9 | Selbsterklärung | „Erkläre in zwei Sätzen …“, danach Musterlösung zum Vergleich | Nach Texten und Videos |
 | M10 | Peer-Check | Ergebnis mit Mitlernenden vergleichen oder gegenseitig erklären | Pull-Prinzip, Präsenzphasen |
+| M11 | Befehlskasten | Kasten „Befehle dieser Seite“ an fester Stelle vor der ersten Aufgabe: Syntax mit Platzhaltern, kein fertiger Aufgabenbefehl; Hilfe-Knopf nur für Hänger | Konsolen-Simulationen, gegen A12 |
