@@ -20,8 +20,12 @@ Dieser Ordner enthält ein Unterrichtsmaterial in Arbeit.
 
 - Arbeite mit dem Skill `segel-material-erstellen`; didaktische Grundlage ist `segel-unterrichtskonzept`.
 - Lies zu Beginn jeder Session `STATUS.md`, falls vorhanden.
+- Ausgangsmaterial liegt in `eingang/` und gehört nicht zur Ablage (siehe `references/materialablage.md` im Skill).
 - Antworte auf Deutsch, kurz und in kleinen Schritten.
 """
+
+# Falls die Ablage ein Git-Repo wird: nicht abzulegende Dateien gleich ausschließen.
+GITIGNORE = "eingang/\nAGENTS.md\nCLAUDE.md\n"
 
 
 def verlinke(quelle, link):
@@ -47,9 +51,9 @@ def install():
 
 def projekt(ordner):
     ordner = Path(ordner)
-    for unter in ("quellen", "ausgabe"):
+    for unter in ("eingang", "quellen", "ausgabe"):
         (ordner / unter).mkdir(parents=True, exist_ok=True)
-    for name, inhalt in (("AGENTS.md", AGENTS_MD), ("CLAUDE.md", "@AGENTS.md\n")):
+    for name, inhalt in (("AGENTS.md", AGENTS_MD), ("CLAUDE.md", "@AGENTS.md\n"), (".gitignore", GITIGNORE)):
         datei = ordner / name
         if datei.exists():
             print(f"vorhanden, nicht überschrieben: {datei}")

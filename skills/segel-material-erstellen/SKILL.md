@@ -22,16 +22,19 @@ Diese Grundsätze gelten für jedes Material und in jeder Phase:
 
 - Jedes Material hat einen eigenen Projektordner. Fehlt dort `STATUS.md`, lege sie aus `templates/STATUS.md` an.
 - Halte `STATUS.md` aktuell: Gliederung mit Zeitplanung, Stand je Abschnitt, getroffene Entscheidungen, offene Punkte. Sie ist das Gedächtnis für lange Sessions und den nächsten Tag – lies sie zu Beginn jeder Session.
-- Quellen (Texte, Szenario-Dateien) liegen im Projektordner unter `quellen/`, Rohausgaben echter Installationen unter `quellen/referenz/`, das erzeugte Material unter `ausgabe/`.
+- Der Projektordner folgt dem Aufbau in `references/materialablage.md`: Stoffsammlung, Szenario, Vorlagen und `build.py` unter `quellen/`, Rohausgaben echter Installationen unter `quellen/referenz/`, Tests unter `tests/`, Abnahmeunterlagen unter `abnahme/`, das erzeugte Material unter `ausgabe/`.
+- Ausgangsmaterial der Lehrkraft (PDFs, PowerPoints, Word-Dateien usw.) liegt nur in `eingang/`. Dieser Ordner gehört nicht zur Ablage; nichts im Material darf auf ihn verweisen.
+- **Übernimmst du ein vorhandenes Material** (es gibt schon `STATUS.md` und `METADATEN.md`), lies beide und `quellen/stoff.md`, fasse den Stand kurz zusammen und frage, was geändert werden soll. Entscheidungen in `STATUS.md` gelten weiter, bis die Lehrkraft sie mit neuer Begründung ändert.
 
 ## Phase 1: Beratung
 
-1. **Bringt die Lehrkraft vorhandenes Material mit**, mach zuerst eine Bestandsaufnahme: Material gegen den Katalog (`references/muster-katalog.md`) und die Grundsätze prüfen, Einschätzung in wenigen Punkten geben, dann gezielt nachfragen.
+1. **Bringt die Lehrkraft vorhandenes Material mit** (abgelegt in `eingang/`), mach zuerst eine Bestandsaufnahme: Material gegen den Katalog (`references/muster-katalog.md`) und die Grundsätze prüfen, Einschätzung in wenigen Punkten geben, dann gezielt nachfragen.
 2. Erfrage ansonsten nacheinander (eine Frage pro Nachricht): Thema und Zielgruppe, Lernziele, Materialart (z. B. SCORM-Paket), Vorstellung von Ablauf, Gestaltung und rotem Faden.
 3. Erfrage die **Gesamtzeit** ausdrücklich als Summe aus Input, Übung, Selbstüberprüfung und Vertiefung. Plane nichts außerhalb dieses Rahmens ein; Vertiefung außerhalb der Gesamtzeit nur nach ausdrücklicher Entscheidung der Lehrkraft.
 4. Prüfe die Vorstellung der Lehrkraft gegen die Anti-Patterns des Katalogs und schlage passende Aktivierungsmuster konkret für diesen Stoff vor.
 5. Hält die Lehrkraft an einem ungeeigneten Vorgehen fest: Benenne einmal klar und begründet das Risiko (Muster-ID nennen). Die Entscheidung liegt bei der Lehrkraft; halte sie in `STATUS.md` unter „Entscheidungen“ fest und arbeite dann ohne Widerstand weiter.
-6. Ergebnis: Gliederung mit Zeitspalte in `STATUS.md`, deren Summe der Gesamtzeit entspricht, von der Lehrkraft bestätigt.
+6. **Stoffsammlung:** Leite aus dem Ausgangsmaterial `quellen/stoff.md` ab (Aufbau siehe `references/materialablage.md`): Kernaussagen in eigenen Worten, Fachbegriffe, Beispiele, Quellenangaben statt Kopien. Ab jetzt arbeitest du nur noch mit der Stoffsammlung; das Ausgangsmaterial wird später nicht gebraucht. Lass die Lehrkraft die Stoffsammlung kurz bestätigen.
+7. Ergebnis: Stoffsammlung und Gliederung mit Zeitspalte in `STATUS.md`, deren Summe der Gesamtzeit entspricht, von der Lehrkraft bestätigt.
 
 ## Phase 2: Entwurfszyklen
 
@@ -50,16 +53,16 @@ Je Abschnitt der Gliederung ein Zyklus (bei kleinem Material genügt einer):
 
 1. Globale Prüfungen über das ganze Material ausführen.
 2. Biete die folgenden Bausteine einzeln an. Gib je Baustein eine Empfehlung als Vorauswahl (z. B. Schülerdurchlauf bei interaktiven Paketen immer empfehlen) und frage, welche ausgeführt werden sollen:
-   - **Abnahmebericht** nach `templates/ABNAHMEBERICHT.md`: Abdeckung der Lernziele, Interaktionen, geschätzte Bearbeitungszeit, Prüfergebnisse, bewusst offene Punkte.
+   - **Abnahmebericht** nach `templates/ABNAHMEBERICHT.md`, abgelegt unter `abnahme/`: Abdeckung der Lernziele, Interaktionen, geschätzte Bearbeitungszeit, Prüfergebnisse, bewusst offene Punkte.
    - **Simulierter Schülerdurchlauf** mit frischem Kontext (Subagent, falls das Tool das kann; sonst neue Session), einmal als schwacher, einmal als starker Schüler, möglichst auch als „vorgreifender“ Schüler, der Schritte überspringt. Der Subagent bekommt nur die Oberfläche des Materials, keine Lösungen, keinen Quelltext und keinen Projektverlauf. Jeder Durchlauf bekommt einen eigenen Arbeitsordner (auch für Hilfsdateien) und eigene Ports, damit parallele Läufe sich nicht stören. Gesucht: Hänger ohne hilfreiche Rückmeldung, Sackgassen (wo kann man sich festfahren, und wie kommt man zurück?), Langeweile, Mehrdeutigkeiten, Stellen, an denen man durch Raten durchkommt, Zeitbedarf. Befunde zu Simulationen vor dem Einbau an der Referenzinstallation prüfen.
    - **Checkliste für die manuelle Prüfung**: nur riskante oder neue Stellen, je Punkt Fundstelle und worauf zu achten ist.
 3. Die Abnahme durch die Lehrkraft findet immer statt. Erst nach ihrer Freigabe weiter.
 
 ## Phase 4: Auslieferung
 
-1. Material erzeugen (bei SCORM: ZIP mit `imsmanifest.xml` im Wurzelverzeichnis) und die globalen Prüfungen ein letztes Mal auf das fertige Paket anwenden.
-2. `METADATEN.md` aus `templates/METADATEN.md` ausfüllen: Lizenz, Quellen, Hinweis auf KI-Erstellung.
-3. Quellen, `STATUS.md` und `METADATEN.md` versioniert ablegen (falls der Projektordner ein Git-Repo ist: Commit vorschlagen), damit Kollegen das Material später anpassen können.
+1. Material erzeugen (bei SCORM: ZIP mit `imsmanifest.xml` im Wurzelverzeichnis), mit Versionsnummer im Dateinamen unter `ausgabe/` ablegen und die globalen Prüfungen ein letztes Mal auf das fertige Paket anwenden.
+2. `METADATEN.md` aus `templates/METADATEN.md` anlegen bzw. fortschreiben: Version, Lizenz, Quellen, Hinweis auf KI-Erstellung, Eintrag im Änderungsverlauf.
+3. Ablage nach `references/materialablage.md` zusammenstellen: Pflichtdateien vorhanden, keine Originale, keine absoluten Pfade, nichts aus „Nicht in die Ablage“. Die Ablage ist der Projektordner ohne `eingang/`, `AGENTS.md` und `CLAUDE.md`. Wie sie bereitgestellt wird (Git-Repo, Cloud-Ordner, ZIP), entscheidet die Lehrkraft.
 4. Rückmeldung ans Framework: Neue Fehlertypen aus der Abnahme als Vorschlag für eine neue Prüfung oder einen Katalogeintrag in `STATUS.md` unter „Rückmeldung ans Framework“ notieren.
 
 ## Prüfskripte

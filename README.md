@@ -26,7 +26,11 @@ Das Framework läuft in clientbasierten Agenten-Tools: Claude Code, OpenAI Codex
    python setup.py projekt <ordner>
    ```
 
-   Das legt `AGENTS.md`, `CLAUDE.md` sowie die Unterordner `quellen/` und `ausgabe/` an. Danach das Agenten-Tool in diesem Ordner starten und das gewünschte Material beschreiben.
+   Das legt `AGENTS.md`, `CLAUDE.md` und die Ordnerstruktur an. Vorhandenes Ausgangsmaterial (PDFs, Präsentationen usw.) kommt nach `eingang/`. Danach das Agenten-Tool in diesem Ordner starten und das gewünschte Material beschreiben. Zum Weiterentwickeln eines vorhandenen Materials denselben Befehl auf dessen Ordner anwenden.
+
+## Materialablage
+
+Fertiges Material wird so abgelegt, dass andere Lehrkräfte es weiterentwickeln können: nur selbst erstellte, abgeleitete Dateien, keine Originale des Ausgangsmaterials, unabhängig von der Bereitstellungsform. Einzelheiten: [skills/segel-material-erstellen/references/materialablage.md](skills/segel-material-erstellen/references/materialablage.md).
 
 ## Nutzung ohne Installation (Cloud-Umgebungen)
 

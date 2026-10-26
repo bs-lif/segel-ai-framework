@@ -1,14 +1,20 @@
 # Metadaten: <Thema>
 
-- Version: <z. B. 1.0, Datum>
-- Autor/in: <Lehrkraft>
+- Version: <z. B. 1.0>
+- Autor/innen: <Lehrkraft, ggf. weitere>
 - Lizenz: <z. B. CC BY-SA 4.0>
-- Erstellt mit KI-Unterstützung (segel-ai-framework, <Agenten-Tool und Modell>); inhaltlich geprüft und freigegeben von der Autorin/dem Autor.
+- Erstellt mit KI-Unterstützung (segel-ai-framework <Version>, <Agenten-Tool und Modell>); inhaltlich geprüft und freigegeben von den Autor/innen.
 
 ## Quellen
 
-- <Titel, Urheber, Link, Lizenz>
+- <Titel, Urheber, Fundort, Datum, Lizenz>
 
-## Anpassen
+## Änderungsverlauf
 
-Quellen liegen unter `quellen/`, der Arbeitsstand in `STATUS.md`. Für Änderungen das Framework im Projektordner starten und auf `STATUS.md` verweisen.
+| Version | Datum | Wer | Änderung |
+|---|---|---|---|
+| 1.0 |  |  | Erste Fassung |
+
+## Weiterentwickeln
+
+Aufbau und Vorgehen: siehe `references/materialablage.md` im segel-ai-framework. Kurz: Ordner übernehmen, `python setup.py projekt <ordner>` ausführen, Agenten-Tool im Ordner starten. Arbeitsstand und Entscheidungen stehen in `STATUS.md`, der fachliche Inhalt in `quellen/stoff.md`.
