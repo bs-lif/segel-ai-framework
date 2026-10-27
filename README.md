@@ -18,7 +18,7 @@ Das Framework läuft in clientbasierten Agenten-Tools: Claude Code, OpenAI Codex
 1. Repo klonen:
 
    ```bash
-   git clone https://github.com/funkpunkt/segel-ai-framework.git
+   git clone https://github.com/bs-lif/segel-ai-framework.git
    ```
 
 2. Skills verlinken:
