@@ -14,17 +14,22 @@ Was von einem fertigen Material aufbewahrt und bereitgestellt wird, damit andere
 ```
 <material>/
 ├── METADATEN.md          Pflicht: Version, Lizenz, Quellen, KI-Hinweis, Änderungsverlauf
-├── STATUS.md             Pflicht: Lernziele, Gliederung, Entscheidungen, offene Punkte
+├── STATUS.md             Pflicht: Steckbrief, Gliederung, Entscheidungen, offene Punkte
 ├── quellen/
 │   ├── stoff.md          Pflicht: abgeleitete Stoffsammlung (ersetzt das Ausgangsmaterial)
+│   ├── LERNZIELE-NACHWEIS.md  Lernziele mit Abschlusscheck bzw. Selbstüberprüfung
+│   ├── DREHBUCH.md       Ablauf, Stationen, Übungen, Prüftabelle der Standards
+│   ├── paket/            bei SCORM im PING-Standard: Paketquelle (index.html, js/inhalt.js, …)
 │   ├── szenario*.json    bei Simulationen: einzige Quelle für Fragen, Antworten, Ausgaben
 │   ├── referenz/         bei Simulationen: selbst erzeugte Rohausgaben der Zielsoftware
-│   ├── vorlagen/         Vorlagen, aus denen das Material erzeugt wird (HTML, CSS, Bilder)
+│   ├── vorlagen/         bei eigenen Lösungen: Vorlagen, aus denen das Material erzeugt wird
 │   └── build.py          erzeugt das Material aus Szenario und Vorlagen
 ├── tests/                Durchlauftests (falls vorhanden)
-├── abnahme/              Abnahmebericht, Befunde aus Schülerdurchläufen (falls erstellt)
+├── abnahme/              Prüfbericht, Befunde aus Schülerdurchläufen, Auswertungen nach dem Einsatz
 └── ausgabe/              zuletzt freigegebene Fassung, z. B. <thema>_v1.2.zip
 ```
+
+Bei SCORM im PING-Standard ist `quellen/paket/js/inhalt.js` die Quelle des Inhalts; `engine.js` und `stil.css` darin sind unveränderte Kopien der Vorlage.
 
 Für ein reines Text-Material (Guide, Checkliste) genügen `METADATEN.md`, `STATUS.md`, `quellen/stoff.md` und das Material selbst unter `ausgabe/`.
 

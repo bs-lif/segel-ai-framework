@@ -1,6 +1,15 @@
 # segel-ai-framework
 
-Das segel-ai-framework ist ein Agent-Skills-Framework, mit dem Lehrkräfte an Berufsschulen Unterrichtsmaterial nach dem SeGeL-Konzept (selbstgesteuertes Lernen) KI-gestützt erstellen. Dazu gehören SCORM-Pakete ebenso wie andere Materialarten. Bewährte Abläufe und automatische Qualitätsprüfungen sind fest eingebaut.
+Das segel-ai-framework ist ein Agent-Skills-Framework, mit dem Lehrkräfte an Berufsschulen Unterrichtsmaterial nach dem SeGeL-Konzept (selbstgesteuertes Lernen) KI-gestützt erstellen. Dazu gehören SCORM-Pakete ebenso wie andere Materialarten. Bewährte Abläufe, wissenschaftlich begründete Gestaltungsprinzipien und automatische Qualitätsprüfungen sind fest eingebaut.
+
+## Zwei Ebenen
+
+1. **Gemeinsame Standards** gelten für jedes Material: 13 Prinzipien aus der Lernforschung und 6 Grundsätze aus der Praxis ([prinzipien.md](skills/segel-material-erstellen/references/prinzipien.md), Begründungen in [lernforschung.md](skills/segel-material-erstellen/references/lernforschung.md)).
+2. **Standardvorgehen** für SCORM-Lernpakete ist das PING-Format mit einheitlicher Paketvorlage, automatischem Durchlauftest und Auswertung nach dem Einsatz ([scorm-paket.md](skills/segel-material-erstellen/references/scorm-paket.md)). Abweichungen sind möglich und werden im Projekt begründet.
+
+Prinzipien, Paketvorlage und Werkzeuge stammen inhaltlich bzw. als feste Kopie aus [PING](https://github.com/dennismarcbusch/PING) von Dennis Busch (Stand v1.3).
+
+Der automatische Durchlauftest (`pruefe_paket.py`) braucht für den Browser-Teil Playwright: `pip install playwright` und `playwright install chromium`.
 
 ## Einbinden in die eigene KI-Arbeitsumgebung
 
