@@ -1,3 +1,4 @@
+/* Anpassung gegenüber Lernpaket-Kompass v1.2: In allen angezeigten Texten heißt Teil ③ „Abschlusscheck“ statt „(Kompetenz-)Nachweis“ (Begriff des Frameworks). */
 /* =====================================================================
    Lernpaket-Engine (Lernpaket-Kompass) – setzt den Leitfaden technisch um.
    Diese Datei wird NICHT pro Paket verändert. Inhalte stehen in js/inhalt.js.
@@ -120,10 +121,10 @@
     var pro = (NW.teilB && NW.teilB.proLZ) || 2;
     LZ.forEach(function (z) {
       var n = (P.fragen || []).filter(function (f) { return f.lz === z.id && (f.einsatz || []).indexOf('nachweis') >= 0; }).length;
-      if (n < pro) fehler.push(z.id + ': nur ' + n + ' Nachweis-Fragen, nötig sind ' + pro + '.');
-      else if (n < pro + 2) hinweise.push(z.id + ': Pool klein (' + n + ' Nachweis-Fragen) – Wiederholungen ziehen oft dieselben Fragen.');
+      if (n < pro) fehler.push(z.id + ': nur ' + n + ' Abschlusscheck-Fragen, nötig sind ' + pro + '.');
+      else if (n < pro + 2) hinweise.push(z.id + ': Pool klein (' + n + ' Abschlusscheck-Fragen) – Wiederholungen ziehen oft dieselben Fragen.');
     });
-    if (!NW.teilA) hinweise.push('Nachweis ohne Teil A (Handlungsaufgabe in neuer Situation).');
+    if (!NW.teilA) hinweise.push('Abschlusscheck ohne Teil A (Handlungsaufgabe in neuer Situation).');
     STATIONEN.forEach(function (s) { if (s.beispiel && !s.beispiel.selbsterklaerung) hinweise.push(s.id + ': Lösungsbeispiel ohne Frage zum Selbsterklären (selbsterklaerung).'); });
     if (!STATIONEN.concat(UEBUNGEN).some(function (x) { return x.mitdenken; })) hinweise.push('Keine Aufträge zum Mitdenken (Skizzieren, Zusammenfassen, Erklären).');
     if (!(P.glossar || []).length) hinweise.push('Kein Glossar mit Fachbegriffen.');
@@ -305,7 +306,7 @@
     { id: 'start', name: 'Start' },
     { id: 'entdecken', name: '① Entdecken' },
     { id: 'ueben', name: '② Üben' },
-    { id: 'nachweis', name: '③ Nachweis' },
+    { id: 'nachweis', name: '③ Abschlusscheck' },
     { id: 'abschluss', name: '④ Abschluss' }
   ];
   var nwLauf = null;      // laufender Nachweis-Versuch (nicht gespeichert)
@@ -357,7 +358,7 @@
     return el('div', { class: 'figur' }, [el('div', { class: 'avatar', 'aria-hidden': 'true', text: ini }), el('div', { class: 'blase' }, [fg.name ? el('div', { class: 'name', text: fg.name + (fg.rolle ? ' · ' + fg.rolle : '') }) : null, el('div', { html: text })])]);
   }
   function naechsteStation(i) { return i + 1 < STATIONEN.length ? { t: 'entdecken', i: i + 1, label: 'Weiter zu Station ' + (i + 2) + ': ' + esc(STATIONEN[i + 1].titel) + ' →' } : { t: 'ueben', i: 0, label: 'Weiter zu ② Üben →' }; }
-  function naechsteUebung(i) { return i + 1 < UEBUNGEN.length ? { t: 'ueben', i: i + 1, label: 'Weiter zu Übung ' + (i + 2) + ' →' } : { t: 'nachweis', i: 0, label: 'Weiter zu ③ Nachweis →' }; }
+  function naechsteUebung(i) { return i + 1 < UEBUNGEN.length ? { t: 'ueben', i: i + 1, label: 'Weiter zu Übung ' + (i + 2) + ' →' } : { t: 'nachweis', i: 0, label: 'Weiter zu ③ Abschlusscheck →' }; }
 
   function render() {
     kopf();
@@ -389,7 +390,7 @@
     c.appendChild(el('ul', {}, [
       el('li', { html: '<b>① Entdecken:</b> ' + STATIONEN.length + ' Stationen mit Beispiel und Kurz-Check <span class="badge zaehlt-nicht">zählt nicht</span>' }),
       el('li', { html: '<b>② Üben:</b> ' + UEBUNGEN.length + ' Aufgaben mit Tipps <span class="badge zaehlt-nicht">zählt nicht</span>' }),
-      el('li', { html: '<b>③ Nachweis:</b> ohne Hilfe, bestanden ab ' + BESTEHEN + ' %, beliebig oft wiederholbar, das beste Ergebnis zählt' }),
+      el('li', { html: '<b>③ Abschlusscheck:</b> ohne Hilfe, bestanden ab ' + BESTEHEN + ' %, beliebig oft wiederholbar, das beste Ergebnis zählt' }),
       el('li', { html: '<b>④ Abschluss:</b> Auswertung je Lernziel und Merkblatt zum Mitnehmen' })
     ]));
     if (P.dauer) c.appendChild(el('p', { class: 'klein', text: 'Dauer: ' + P.dauer + '. Du kannst jederzeit aufhören, dein Stand bleibt erhalten.' }));
@@ -423,7 +424,7 @@
         S.skip = STATIONEN.filter(function (s) { return (s.lz || []).length && s.lz.every(function (x) { return sicher.indexOf(x) >= 0; }); }).map(function (s) { return s.id; });
         speichern();
         erg.innerHTML = '';
-        erg.appendChild(msg(S.skip.length ? '<b>Empfehlung:</b> Du kannst diese Stationen überspringen oder nur überfliegen: ' + S.skip.map(function (id) { var s = STATIONEN.filter(function (x) { return x.id === id; })[0]; return esc(s.titel); }).join(', ') + '. Der Nachweis ist für alle gleich.' : 'Arbeite die Stationen der Reihe nach durch – sie bringen dir noch etwas.', 'ok'));
+        erg.appendChild(msg(S.skip.length ? '<b>Empfehlung:</b> Du kannst diese Stationen überspringen oder nur überfliegen: ' + S.skip.map(function (id) { var s = STATIONEN.filter(function (x) { return x.id === id; })[0]; return esc(s.titel); }).join(', ') + '. Der Abschlusscheck ist für alle gleich.' : 'Arbeite die Stationen der Reihe nach durch – sie bringen dir noch etwas.', 'ok'));
       } }));
       v.appendChild(erg);
       haupt.appendChild(v);
@@ -557,7 +558,7 @@
 
   /* ---------- ② Üben ---------- */
   function vUebung() {
-    if (!UEBUNGEN.length) { haupt.appendChild(msg('Keine Übungen vorhanden.', 'warn')); leiste('', 'Weiter zu ③ Nachweis →', function () { zeige('nachweis'); }); return; }
+    if (!UEBUNGEN.length) { haupt.appendChild(msg('Keine Übungen vorhanden.', 'warn')); leiste('', 'Weiter zu ③ Abschlusscheck →', function () { zeige('nachweis'); }); return; }
     var i = Math.min(ANSICHT.i, UEBUNGEN.length - 1), u = UEBUNGEN[i];
     var r = el('div', { class: 'raster' + (u.steckbrief ? ' mit-seite' : '') });
     r.appendChild(seitenliste(UEBUNGEN, i, 'ueben', S.ue, 'Übungen'));
@@ -624,18 +625,18 @@
     var c = el('div', { class: 'card' });
     haupt.appendChild(c);
     if (!nwLauf || nwLauf.phase === 'fertig') {
-      c.appendChild(el('h2', { text: '③ Abschlusscheck' }));  // Anpassung gegenüber Lernpaket-Kompass v1.2: Begriff des Frameworks
+      c.appendChild(el('h2', { text: '③ Abschlusscheck' }));
       if (NW.einleitung) c.appendChild(figur(NW.einleitung));
       c.appendChild(el('ul', {}, [
         el('li', { html: NW.teilA ? '<b>Teil A:</b> eine Aufgabe aus einer neuen Situation, ohne Tipps.' : null }),
         el('li', { html: '<b>Teil ' + (NW.teilA ? 'B' : 'A') + ':</b> ' + ((NW.teilB && NW.teilB.proLZ) || 2) * LZ.length + ' Fragen, gemischt aus allen Lernzielen.' }),
-        el('li', { html: 'Bestanden ab <b>' + BESTEHEN + ' %</b>. Du kannst den Nachweis beliebig oft wiederholen, das beste Ergebnis zählt.' }),
+        el('li', { html: 'Bestanden ab <b>' + BESTEHEN + ' %</b>. Du kannst den Abschlusscheck beliebig oft wiederholen, das beste Ergebnis zählt.' }),
         el('li', { html: 'Feedback zu jeder Frage bekommst du nach dem Abgeben.' })
       ].filter(function (x) { return x.innerHTML; })));
       var offen = UEBUNGEN.filter(function (u) { return !S.ue[u.id]; }).length;
       if (offen) c.appendChild(msg('Empfehlung: Du hast noch ' + offen + ' Übung(en) offen. Du kannst trotzdem starten.', 'warn'));
       if (S.n) c.appendChild(el('p', { class: 'klein', text: 'Bisherige Versuche: ' + S.n + ' · bestes Ergebnis: ' + S.best + ' %' }));
-      leiste('Bereit? Nimm dir etwa ' + (NW.dauer || '20 Minuten') + ' Zeit.', S.n ? 'Nachweis erneut starten →' : 'Nachweis starten →', function () {
+      leiste('Bereit? Nimm dir etwa ' + (NW.dauer || '20 Minuten') + ' Zeit.', S.n ? 'Abschlusscheck erneut starten →' : 'Abschlusscheck starten →', function () {
         nwLauf = { phase: NW.teilA ? 'A' : 'B', fragen: ziehen(), a: null, w: [] };
         render();
       });
@@ -643,7 +644,7 @@
     }
     if (nwLauf.phase === 'A') {
       var A = NW.teilA;
-      c.appendChild(el('div', { class: 'klein', text: 'Nachweis · Teil A von 2 · keine Tipps' }));
+      c.appendChild(el('div', { class: 'klein', text: 'Abschlusscheck · Teil A von 2 · keine Tipps' }));
       c.appendChild(el('h2', { text: A.titel || 'Handlungsaufgabe' }));
       c.appendChild(auftrag(A.auftrag || ''));
       if (A.inhalt) c.appendChild(el('div', { html: A.inhalt }));
@@ -658,7 +659,7 @@
       return;
     }
     if (nwLauf.phase === 'B') {
-      c.appendChild(el('div', { class: 'klein', text: 'Nachweis · ' + (NW.teilA ? 'Teil B von 2' : 'Fragen') + ' · keine Tipps, Feedback nach dem Abgeben' }));
+      c.appendChild(el('div', { class: 'klein', text: 'Abschlusscheck · ' + (NW.teilA ? 'Teil B von 2' : 'Fragen') + ' · keine Tipps, Feedback nach dem Abgeben' }));
       c.appendChild(el('h2', { text: 'Fragen' }));
       nwLauf.w = nwLauf.fragen.map(function (f, k) { var q = frage(f, 'pruefung', { nr: k + 1 }); c.appendChild(q.el); testHaken.push({ art: 'frage', obj: q }); return q; });
       var warn = el('div', { 'aria-live': 'polite' }); c.appendChild(warn);
@@ -719,8 +720,8 @@
     haupt.appendChild(c);
     c.appendChild(el('h2', { text: '④ Abschluss' }));
     if (!S.n) {
-      c.appendChild(msg('Du hast den Nachweis noch nicht gemacht. Danach siehst du hier deine Auswertung je Lernziel und kannst dein Merkblatt ergänzen.', 'warn'));
-      leiste('', 'Zum ③ Nachweis →', function () { zeige('nachweis'); });
+      c.appendChild(msg('Du hast den Abschlusscheck noch nicht gemacht. Danach siehst du hier deine Auswertung je Lernziel und kannst dein Merkblatt ergänzen.', 'warn'));
+      leiste('', 'Zum ③ Abschlusscheck →', function () { zeige('nachweis'); });
       return;
     }
     var bestanden = S.best >= BESTEHEN;
@@ -735,7 +736,7 @@
       c.appendChild(el('div', { class: 'lzzeile' }, [el('div', { html: '<b>' + esc(z.id) + '</b> ' + z.text }), el('div', { class: 'balken ' + (p >= 80 ? 'ok' : p >= 50 ? 'mittel' : ''), role: 'img', 'aria-label': p + ' Prozent' }, el('span', { style: 'width:' + p + '%' })), el('div', { text: p + ' % · ' + st })]));
     });
     if (empfehlung.length) {
-      var em = el('div', { class: 'msg warn' }, [el('b', { text: 'Was als Nächstes? ' }), 'Wiederhole diese Stationen und versuche den Nachweis dann noch einmal: ']);
+      var em = el('div', { class: 'msg warn' }, [el('b', { text: 'Was als Nächstes? ' }), 'Wiederhole diese Stationen und versuche den Abschlusscheck dann noch einmal: ']);
       empfehlung.forEach(function (i) { em.appendChild(el('button', { type: 'button', text: 'Station ' + (i + 1) + ': ' + STATIONEN[i].titel, onclick: function () { zeige('entdecken', i); } })); em.appendChild(document.createTextNode(' ')); });
       c.appendChild(em);
     }
@@ -789,7 +790,7 @@
     dr.appendChild(el('div', {}, [nm, ' ', el('button', { type: 'button', text: '🖨 Ergebnis als PDF', onclick: function () { druckFenster('Ergebnis ' + (P.titel || ''), ergebnisHtml(nm.value)); } })]));
     haupt.appendChild(dr);
 
-    if (!bestanden) leiste('Mit den empfohlenen Stationen klappt es beim nächsten Mal.', empfehlung.length ? 'Zu Station ' + (empfehlung[0] + 1) + ' →' : 'Nachweis erneut starten →', function () { if (empfehlung.length) zeige('entdecken', empfehlung[0]); else zeige('nachweis'); });
+    if (!bestanden) leiste('Mit den empfohlenen Stationen klappt es beim nächsten Mal.', empfehlung.length ? 'Zu Station ' + (empfehlung[0] + 1) + ' →' : 'Abschlusscheck erneut starten →', function () { if (empfehlung.length) zeige('entdecken', empfehlung[0]); else zeige('nachweis'); });
     else leiste('Bestanden! Sichere jetzt dein Wissen auf dem Merkblatt.', 'Zum Merkblatt ↓', function () { mb.scrollIntoView({ behavior: 'smooth' }); var t = mb.querySelector('textarea'); if (t) t.focus({ preventScroll: true }); });
   }
   function merkblattHtml(felder) {
