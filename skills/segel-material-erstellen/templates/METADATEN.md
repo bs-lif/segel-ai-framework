@@ -1,9 +1,9 @@
 # Metadaten: <Thema>
 
-- Version: <z. B. 1.0>
+- Version: <z. B. 1.0; bei SCORM dieselbe wie `version` in `inhalt.js`>
 - Autor/innen: <Lehrkraft, ggf. weitere>
 - Lizenz: <z. B. CC BY-SA 4.0>
-- Paketvorlage: <bei SCORM: PING-Vorlage aus segel-ai-framework <Version> (Stand PING v1.3); sonst „eigene Lösung“ mit Verweis auf die Entscheidung in STATUS.md>
+- Paketvorlage: <bei SCORM: Kompass-Vorlage aus segel-ai-framework <Version> (Stand Lernpaket-Kompass v1.2); sonst „eigene Lösung“ mit Verweis auf die Entscheidung in STATUS.md>
 - Erstellt mit KI-Unterstützung (segel-ai-framework <Version>, <Agenten-Tool und Modell>); inhaltlich geprüft und freigegeben von den Autor/innen.
 
 ## Quellen

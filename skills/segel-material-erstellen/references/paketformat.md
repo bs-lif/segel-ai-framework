@@ -1,7 +1,6 @@
-# Inhaltsformat der Paketvorlage
+# Format für Fragen und Paketinhalt (Kompass-Vorlage)
 
-> Feste Kopie aus PING v1.3 (`skills/_gemeinsam/fragenformat.md`). Teil ③ heißt im Framework „Abschlusscheck“ (Feldname in `inhalt.js` weiterhin `nachweis`).
-
+> Feste Kopie aus Lernpaket-Kompass v1.2 (`skills/_gemeinsam/fragenformat.md`). Teil ③ heißt im Framework „Abschlusscheck“ (Feldname in `inhalt.js` weiterhin `nachweis`).
 
 Alle Inhalte eines Pakets stehen in `js/inhalt.js` als ein Objekt `window.PAKET`. Die Engine (`js/engine.js`) setzt daraus Start, Entdecken, Üben, Nachweis und Abschluss zusammen und erfüllt dabei die technischen Muss-Punkte des Leitfadens automatisch. Die Beispieldatei in der Vorlage („Bits & Bytes“) zeigt jedes Feld im Einsatz.
 
@@ -41,19 +40,31 @@ Alle Inhalte eines Pakets stehen in `js/inhalt.js` als ein Objekt `window.PAKET`
 
 | Feld | Bedeutung |
 |---|---|
-| `id` | `ping-<name>`, gleich dem Identifier im Manifest |
-| `titel`, `untertitel`, `version`, `dauer` | Anzeige |
+| `id` | `<präfix>-<name>` (Präfix für Projekt oder Fach, z. B. `ping-`), gleich dem Identifier im Manifest |
+| `titel`, `untertitel`, `dauer` | Anzeige |
+| `version` | Pflicht, Form `'1.0'`. Steht klein in der Kopfzeile („v1.0“), in der Fußzeile und auf Ergebnis-PDF und Merkblatt; `paket.py zip` überträgt sie ins Manifest. Bei jeder Änderung erhöhen: Korrektur 1.0 → 1.1, neue Inhalte 2.0. |
 | `bestehen` | 80 (Leitfaden) |
 | `figur` | `{name, rolle}` der Story-Figur (Sprechblasen) |
 | `leitsituation` | Einstiegstext der Figur (HTML) |
 | `lernziele` | `[{id: 'LZ1', kurz, text: 'Ich kann …'}]` – drei bis acht |
 | `vorwissen` | Liste von Fragen-IDs für den freiwilligen Vorwissens-Check (eine je Lernziel) |
-| `stationen` | `[{id, titel, lz: [...], auftrag, leitfrage, inhalt, bild, beispiel: {titel, aufgabe, schritte: [{tun, warum}]}, vertiefung, interaktion, beruf, steckbrief, check: [Fragen-IDs]}]` |
-| `uebungen` | `[{id, titel, lz, auftrag, frage (ID) oder interaktion, tipps: [Denkanstoß, Teillösung, Lösung], reflexion: {frage, muster}, steckbrief}]` |
+| `glossar` | `[{begriff, erklaerung, vorab}]` – alle Fachbegriffe; `vorab: true` stellt den Begriff schon auf der Startseite vor (Vortraining). Unter jeder Station und Übung aufklappbar. |
+| `stationen` | `[{id, titel, lz: [...], auftrag, leitfrage, inhalt, bild, beispiel: {titel, aufgabe, schritte: [{tun, warum}], selbsterklaerung: {schritt, frage}}, vertiefung, interaktion, mitdenken: {auftrag, muster}, beruf, steckbrief, check: [Fragen-IDs]}]` |
+| `uebungen` | `[{id, titel, lz, auftrag, frage (ID) oder interaktion, tipps: [Denkanstoß, Teillösung, Lösung], mitdenken: {auftrag, muster}, reflexion: {frage, muster}, steckbrief}]` |
 | `nachweis` | `{dauer, gewichtA (Prozent, Standard 50), einleitung, teilA: {titel, auftrag, inhalt, interaktion}, teilB: {proLZ: 2}}` |
 | `merkblatt` | `[{lz, titel, zeilen: [{text mit ___, loesung}], fehler, beispiel, schema}]` |
 | `selbsttest` | fünf Fragen-IDs für die Rückseite des Merkblatts |
+| `tafel` | optional: Tafelbild für einen freiwilligen Lehrer-Input (siehe „Tafelbild“ unten). Ohne dieses Feld gibt es kein Tafelbild. |
 | `fragen` | Fragenpool (siehe oben) |
+
+## Zum Mitdenken anregen (generatives Lernen)
+
+- **`beispiel.selbsterklaerung: {schritt, frage}`** – an einem entscheidenden Schritt des Lösungsbeispiels (Nummer ab 1) wird dessen `warum` zunächst verborgen. Die Lernenden lesen die Frage („Warum rechnest du mit 72 weiter?“), überlegen und schreiben, dann klappen sie die Begründung auf. Jedes Lösungsbeispiel sollte eine solche Frage haben.
+- **`mitdenken: {auftrag, muster}`** – kurzer Auftrag nach einer Station oder Übung: skizzieren, in eigenen Worten zusammenfassen, jemand anderem erklären. Die Musterlösung lässt sich zum Vergleich aufklappen. Einträge werden nicht gespeichert.
+
+## Ton und Video
+
+Die Vorlage nutzt keinen Ton. Wer Ton oder Video einbaut, liefert immer den Text mit (Untertitel per `<track>` oder ein Transkript direkt darunter) und vermittelt nichts nur über Ton.
 
 ## Interaktionen
 
@@ -72,6 +83,46 @@ interaktion: function (box, api) {
 ```
 
 Regeln: Antippen statt nur Ziehen (Tablet), per Tastatur bedienbar (`<button>`), Beschriftungen direkt im Bild, Farben über CSS-Variablen (`var(--ok)` usw.), keine externen Dateien, keine `alert/confirm/prompt`. Im Nachweis Teil A gibt es keine Rückmeldung während der Bearbeitung; Fehler wirken sich, wo möglich, realistisch aus.
+
+## Tafelbild (optional)
+
+Für Pakete mit einem freiwilligen Lehrer-Input (Leitfaden C2). `js/tafel.js` zeigt die Szenen als Präsentation: groß, ohne erklärenden Text, Schritt für Schritt. Nicht jedes Paket braucht das – sinnvoll vor allem bei Simulationen, Abläufen und Vergleichen.
+
+```js
+tafel: {
+  titel: 'Bits & Bytes – Überblick',
+  dauer: '15 Minuten',
+  szenen: [
+    { id: 'stellenwerte', titel: 'Stellenwerte', station: 'S1',
+      erklaerung: '<p>Kurz, für Schüler zuschaltbar …</p>',
+      zeichne: function (buehne, api) {
+        // buehne: leeres <div> (Flex-Spalte, füllt den Bildschirm)
+        // api.werkzeug({ icon, text, taste, typ: 'knopf'|'schalter'|'modus', gruppe, an, aktion(an, knopf) })
+        //   → Knopf in der unteren Leiste mit Tastenkürzel; Rückgabe { setze(an), knopf }
+        // api.praesentation → true, wenn ohne Erklärungen gestartet (index.html#tafel)
+        return { aufraeumen: function () { /* Animationen stoppen */ } };
+      } }
+  ]
+}
+```
+
+| Feld | Pflicht | Bedeutung |
+|---|---|---|
+| `titel`, `dauer` | nein | Anzeige im Dialog und auf der Startseiten-Karte |
+| `szenen[].titel` | ja | kurzer Name (2–3 Wörter); erscheint nur mit eingeschalteten Erklärungen |
+| `szenen[].station` | ja | ID der Station, die das Thema vertieft – das Tafelbild zeigt nichts, was im Paket fehlt |
+| `szenen[].erklaerung` | ja | 2–4 kurze Sätze für Schüler, die das Tafelbild selbst öffnen |
+| `szenen[].zeichne` | ja | baut die Szene; nutzt dieselben Bausteine wie die Interaktionen der Stationen |
+
+Regeln:
+
+- **Kein erklärender Text auf der Bühne.** Erlaubt: Beschriftungen im Bild, Zahlen, Symbole. Die Lehrkraft erklärt mündlich; die Erklärung steht in `erklaerung`.
+- **Höchstens etwa sechs Szenen** für 20 Minuten, je Szene eine Kernaussage. Die **letzte Szene sichert** (z. B. Vergleich mit aufdeckbaren Kennzahlen).
+- Jede Szene trägt das Muster **Vorhersagen → Klicken → Deuten**: Werkzeuge so anlegen, dass die Lehrkraft erst fragen und dann auslösen oder aufdecken kann (Schalter „Anzahl zeigen“, „Dezimal“ usw.).
+- Groß zeichnen: Die Bühne ist so breit wie der Beamer; Schrift und Linien in der Szene größer als in der Station.
+- Werkzeuge mit sprechendem Kurztext und Tastenkürzel; Kürzel `e`, `p`, `w`, `f`, Ziffern und Pfeiltasten sind vom Tafelbild belegt.
+- Nichts speichern: keine SCORM-Aufrufe, kein `localStorage`.
+- Zum Tafelbild gehört ein **Ablaufplan** für die Lehrkraft (`lehrer/input-ablauf.md`, Vorlage im Skill `lernpaket-bauen`).
 
 ## Mengen (Richtwerte aus dem Leitfaden)
 

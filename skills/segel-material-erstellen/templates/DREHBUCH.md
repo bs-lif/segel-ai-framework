@@ -1,6 +1,6 @@
 # Drehbuch: <Thema>
 
-Struktur für SCORM-Pakete im PING-Standard (`references/scorm-paket.md`); bei anderen Materialarten sinngemäß.
+Struktur für SCORM-Pakete im Kompass-Standard (`references/scorm-paket.md`); bei anderen Materialarten sinngemäß.
 
 ## Handlungssituation und Figuren
 
@@ -13,6 +13,13 @@ Struktur für SCORM-Pakete im PING-Standard (`references/scorm-paket.md`); bei a
 - Ablauf und Dauer
 - Lernziele mit Selbsteinschätzung
 - Vorwissens-Check: je Lernziel eine Frage → Empfehlung, was übersprungen werden kann
+- Wichtige Begriffe vorab: siehe Glossar
+
+## Glossar
+
+| Begriff | Erklärung (kurz, einfache Sprache) | vorab vorstellen? |
+|---|---|---|
+| | | ☐ |
 
 ## ① Entdecken – Stationen
 
@@ -22,6 +29,8 @@ Struktur für SCORM-Pakete im PING-Standard (`references/scorm-paket.md`); bei a
 - **Leitfrage:** …
 - **Kurz erklärt** (sichtbar, 2–5 Sätze, Bild vor Text): …
 - **Lösungsbeispiel:** Aufgabe … / Schritte mit „Warum“: 1. … 2. … 3. …
+- **Frage zum Selbsterklären** (an Schritt …): „Warum …?“
+- **Mitdenken (optional):** Skizzieren / in eigenen Worten zusammenfassen / jemandem erklären: … Muster: …
 - **Ausprobieren mit Rückmeldung:** Was tun die Lernenden, woran wird Erfolg erkannt? Typische Fehleingaben und ihre Hinweise: …
 - **Hintergrund** (aufklappbar): …
 - **Wozu brauchst du das?** …
@@ -46,13 +55,25 @@ Struktur für SCORM-Pakete im PING-Standard (`references/scorm-paket.md`); bei a
 - **Merkblatt** je Lernziel: zwei Lückensätze mit Lösung, typischer Fehler, kurzes Beispiel, ggf. Schritt-Schema
 - **Selbsttest:** fünf Fragen aus allen Lernzielen
 
+## Input und Tafelbild (optional – nur wenn ein freiwilliger Input geplant ist)
+
+Rolle: Einstieg (Überblick, Neugier), nicht Ersatz. Wer nicht teilnimmt, verpasst nichts. Kein erklärender Text auf der Tafel; Erklärungen für Schüler zuschaltbar. Ablaufplan: `quellen/INPUT-ABLAUF.md`.
+
+| Szene | Station | Was zu sehen ist / was die Lehrkraft auslöst | Vorhersage-Frage an die Klasse | Kernaussage (mündlich) |
+|---|---|---|---|---|
+| 1 … | S… | | | |
+| … (höchstens etwa 6) | | | | |
+| letzte: Sicherung | | | | |
+
+Bewusst offen gelassen (wird in der Station gelöst): …
+
 ## Prüftabelle (Standards)
 
 | Standard | Status | Wo |
 |---|---|---|
 | P1 Handlungssituation | ☐ | |
 | P2 Vom Leichten zum Schweren, Tipps | ☐ | |
-| P3 Lösungsbeispiele | ☐ | |
+| P3 Lösungsbeispiele mit Selbsterklären | ☐ | |
 | P4 Entdecken mit Auftrag | ☐ | |
 | P5 Kurz-Checks | ☐ | |
 | P6 Feedback, das erklärt | ☐ | |
@@ -69,3 +90,5 @@ Struktur für SCORM-Pakete im PING-Standard (`references/scorm-paket.md`); bei a
 | G4 Rückmeldung am Zustand | ☐ | |
 | G5 Zurücksetzbar | ☐ | |
 | G6 Echt statt Gedächtnis | ☐ | |
+| Glossar, einfache Sprache, Ton nur mit Text | ☐ | |
+| Input mit Tafelbild (optional) | ☐ / entfällt | Inhalt ⊆ Material, je Szene Station, textfrei, Sicherung am Ende |

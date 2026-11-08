@@ -1,10 +1,11 @@
 /* =====================================================================
-   Lernpaket-Engine (PING) – setzt den Leitfaden technisch um.
+   Lernpaket-Engine (Lernpaket-Kompass) – setzt den Leitfaden technisch um.
    Diese Datei wird NICHT pro Paket verändert. Inhalte stehen in js/inhalt.js.
    Aufbau: Start (Lernziele, Selbsteinschätzung, Vorwissens-Check) → ① Entdecken
    (Stationen mit Lösungsbeispiel und Kurz-Check) → ② Üben (3 gestufte Tipps,
    Reflexion) → ③ Nachweis (Teil A Handlungsaufgabe, Teil B Fragenpool, 80 %) →
    ④ Abschluss (Auswertung je Lernziel, Selbsteinschätzung nachher, Merkblatt).
+   Optional: Tafelbild für einen freiwilligen Input (js/tafel.js, PAKET.tafel).
    ===================================================================== */
 (function () {
   'use strict';
@@ -83,7 +84,8 @@
   function pruefeInhalt() {
     var fehler = [], hinweise = [], ids = {};
     function id(x, wo) { if (!x) fehler.push(wo + ': id fehlt'); else if (ids[x]) fehler.push('Doppelte id: ' + x); else ids[x] = 1; }
-    if (!P.id || !/^ping-[a-z0-9-]+$/.test(P.id)) hinweise.push('PAKET.id sollte "ping-<name>" lauten (wie der Manifest-Identifier).');
+    if (!P.id || !/^[a-z0-9]+-[a-z0-9]+(-[a-z0-9]+)*$/.test(P.id)) hinweise.push('PAKET.id sollte "<präfix>-<name>" lauten, z. B. ping-dreisatz (wie der Manifest-Identifier).');
+    if (!/^\d+\.\d+(\.\d+)?$/.test(String(P.version || ''))) fehler.push('PAKET.version fehlt oder hat nicht die Form 1.0 (wird klein in der Kopfzeile und auf den Ausdrucken angezeigt).');
     if (BESTEHEN !== 80) hinweise.push('Bestehensgrenze ist ' + BESTEHEN + ' %, der Leitfaden sieht 80 % vor.');
     if (LZ.length < 3 || LZ.length > 8) hinweise.push('Leitfaden: drei bis acht Lernziele (jetzt ' + LZ.length + ').');
     LZ.forEach(function (z) { id(z.id, 'Lernziel'); if (!/^Ich kann/.test(z.text || '')) hinweise.push(z.id + ': Lernziel in Schülersprache beginnen („Ich kann …“).'); });
@@ -122,9 +124,27 @@
       else if (n < pro + 2) hinweise.push(z.id + ': Pool klein (' + n + ' Nachweis-Fragen) – Wiederholungen ziehen oft dieselben Fragen.');
     });
     if (!NW.teilA) hinweise.push('Nachweis ohne Teil A (Handlungsaufgabe in neuer Situation).');
+    STATIONEN.forEach(function (s) { if (s.beispiel && !s.beispiel.selbsterklaerung) hinweise.push(s.id + ': Lösungsbeispiel ohne Frage zum Selbsterklären (selbsterklaerung).'); });
+    if (!STATIONEN.concat(UEBUNGEN).some(function (x) { return x.mitdenken; })) hinweise.push('Keine Aufträge zum Mitdenken (Skizzieren, Zusammenfassen, Erklären).');
+    if (!(P.glossar || []).length) hinweise.push('Kein Glossar mit Fachbegriffen.');
+    if (/<(audio|video)\b/i.test(JSON.stringify(P, function (k, v) { return typeof v === 'function' ? String(v) : v; }))) hinweise.push('Paket enthält Ton oder Video: Untertitel bzw. Transkript sicherstellen.');
     if (!P.merkblatt || !P.merkblatt.length) hinweise.push('Kein Merkblatt (P13, Soll).');
     else LZ.forEach(function (z) { if (!P.merkblatt.some(function (m) { return m.lz === z.id; })) hinweise.push('Merkblatt ohne Abschnitt zu ' + z.id + '.'); });
     (P.selbsttest || []).forEach(function (q) { if (!FR[q]) fehler.push('Selbsttest-Frage ' + q + ' gibt es nicht.'); });
+    if (P.tafel) {  // optionales Tafelbild für den Input (Leitfaden C2)
+      var sz = P.tafel.szenen || [];
+      if (!window.TAFEL) fehler.push('PAKET.tafel ist gesetzt, aber js/tafel.js ist nicht (vor engine.js) eingebunden.');
+      if (!sz.length) fehler.push('Tafelbild ohne Szenen.');
+      if (sz.length > 8) hinweise.push('Tafelbild mit ' + sz.length + ' Szenen – für etwa 20 Minuten sind höchstens 6–8 sinnvoll.');
+      sz.forEach(function (s, i) {
+        var w = 'Tafelbild-Szene ' + (i + 1);
+        if (typeof s.zeichne !== 'function') fehler.push(w + ': zeichne-Funktion fehlt.');
+        if (!s.titel) hinweise.push(w + ': titel fehlt.');
+        if (!s.erklaerung) hinweise.push(w + ': zuschaltbare Erklärung für Schüler fehlt.');
+        if (!s.station) hinweise.push(w + ': keine Station verknüpft (das Tafelbild zeigt nur, was auch im Paket vorkommt).');
+        else if (!STATIONEN.some(function (x) { return x.id === s.station; })) hinweise.push(w + ': Station ' + s.station + ' gibt es (noch) nicht.');
+      });
+    }
     return { fehler: fehler, hinweise: hinweise };
   }
   function lzIds() { var o = {}; LZ.forEach(function (z) { o[z.id] = 1; }); return o; }
@@ -301,7 +321,9 @@
   }
   function anzahl(o) { return Object.keys(o).filter(function (k) { return o[k]; }).length; }
   function kopf() {
-    document.getElementById('titel').textContent = P.titel || '';
+    var ti = document.getElementById('titel');
+    ti.textContent = P.titel || '';
+    if (P.version) ti.appendChild(el('span', { class: 'version', id: 'version', title: 'Version des Lernpakets', 'aria-label': 'Version ' + P.version, text: 'v' + P.version }));
     document.getElementById('untertitel').textContent = P.untertitel || '';
     document.title = P.titel || 'Lernpaket';
     var fp = document.getElementById('fortschritt'); fp.innerHTML = '';
@@ -372,6 +394,13 @@
     ]));
     if (P.dauer) c.appendChild(el('p', { class: 'klein', text: 'Dauer: ' + P.dauer + '. Du kannst jederzeit aufhören, dein Stand bleibt erhalten.' }));
     haupt.appendChild(c);
+    if (P.tafel && window.TAFEL && window.TAFEL.startKarte) haupt.appendChild(window.TAFEL.startKarte());  // optionaler Input mit Tafelbild
+    var vorab = (P.glossar || []).filter(function (g) { return g.vorab; });
+    if (vorab.length) {
+      var gb = el('div', { class: 'card' }, [el('h2', { text: 'Wichtige Begriffe vorab' }), el('p', { class: 'klein', text: 'Diese Wörter kommen gleich vor. Alle Begriffe findest du später unter jeder Station im Glossar.' })]);
+      gb.appendChild(el('dl', { class: 'glossar' }, vorab.reduce(function (a, g) { return a.concat([el('dt', { html: g.begriff }), el('dd', { html: g.erklaerung })]); }, [])));
+      haupt.appendChild(gb);
+    }
 
     var z = el('div', { class: 'card' });
     z.appendChild(el('h2', { text: 'Deine Lernziele' }));
@@ -407,6 +436,38 @@
     });
   }
 
+  /* ---------- Bausteine zum Mitdenken und Nachschlagen ---------- */
+  // Selbsterklärung im Lösungsbeispiel: erst selbst überlegen, dann die Begründung aufklappen (P3, generatives Lernen)
+  function selbsterklaeren(frage, begruendung) {
+    var box = el('div', { class: 'selbst' });
+    box.appendChild(el('div', { html: '🤔 <b>Erklär es dir selbst:</b> ' + frage }));
+    var ta = el('textarea', { rows: 2, 'aria-label': 'Deine Erklärung', placeholder: 'Deine Erklärung in eigenen Worten …' });
+    var aus = el('div', { 'aria-live': 'polite' });
+    box.appendChild(ta);
+    box.appendChild(el('button', { type: 'button', text: 'Begründung zeigen', onclick: function (e) { aus.innerHTML = ''; aus.appendChild(el('div', { class: 'warum', html: 'Warum: ' + begruendung })); e.target.hidden = true; } }));
+    box.appendChild(aus);
+    return box;
+  }
+  // Auftrag zum Mitdenken nach Station oder Übung: skizzieren, zusammenfassen, jemandem erklären
+  function mitdenken(md) {
+    var box = el('div', { class: 'mitdenken' });
+    box.appendChild(el('div', { html: '✏️ <b>Mitdenken:</b> ' + md.auftrag }));
+    if (md.eingabe !== false) box.appendChild(el('textarea', { rows: 3, 'aria-label': 'Deine Antwort', placeholder: 'Schreib oder skizziere auf Papier – hier ist Platz für Stichpunkte.' }));
+    if (md.muster) {
+      var mu = el('div', { 'aria-live': 'polite' });
+      box.appendChild(el('button', { type: 'button', text: 'Mit Muster vergleichen', onclick: function () { mu.innerHTML = ''; mu.appendChild(el('div', { class: 'muster', html: '<b>Muster:</b> ' + md.muster })); } }));
+      box.appendChild(mu);
+    }
+    return box;
+  }
+  // Glossar mit allen Fachbegriffen, jederzeit aufklappbar (C3: Vortraining, Deutsch als Zweitsprache)
+  function glossar() {
+    if (!(P.glossar || []).length) return null;
+    var d = el('details', { class: 'glossar-box' }, [el('summary', { text: '📖 Fachbegriffe nachschlagen' })]);
+    d.appendChild(el('dl', { class: 'glossar' }, P.glossar.reduce(function (a, g) { return a.concat([el('dt', { html: g.begriff }), el('dd', { html: g.erklaerung })]); }, [])));
+    return d;
+  }
+
   /* ---------- ① Entdecken ---------- */
   function seitenliste(items, aktiv, teil, erledigt, praefix) {
     var ul = el('ul', { class: 'liste', 'aria-label': praefix });
@@ -435,7 +496,11 @@
       if (S.skip.indexOf(s.id) < 0) bsp.open = true;
       bsp.appendChild(el('summary', { text: 'Gelöstes Beispiel: ' + (s.beispiel.titel || '') + ' (überspringbar)' }));
       if (s.beispiel.aufgabe) bsp.appendChild(el('p', { html: s.beispiel.aufgabe }));
-      bsp.appendChild(el('ol', {}, (s.beispiel.schritte || []).map(function (x) { return el('li', {}, [el('div', { html: x.tun }), x.warum ? el('div', { class: 'warum', html: 'Warum: ' + x.warum }) : null]); })));
+      var se = s.beispiel.selbsterklaerung;  // {schritt: Nummer ab 1, frage}
+      bsp.appendChild(el('ol', {}, (s.beispiel.schritte || []).map(function (x, k) {
+        if (se && se.schritt === k + 1 && x.warum) return el('li', {}, [el('div', { html: x.tun }), selbsterklaeren(se.frage, x.warum)]);
+        return el('li', {}, [el('div', { html: x.tun }), x.warum ? el('div', { class: 'warum', html: 'Warum: ' + x.warum }) : null]);
+      })));
       m.appendChild(bsp);
     }
     if (s.vertiefung) m.appendChild(el('details', {}, [el('summary', { text: 'Genauer erklärt (aufklappen)' }), el('div', { html: s.vertiefung })]));
@@ -461,6 +526,7 @@
       m.appendChild(iMeld);
       testHaken.push({ art: 'interaktion', obj: obj });
     }
+    if (s.mitdenken) m.appendChild(mitdenken(s.mitdenken));
     if (s.beruf) m.appendChild(msg('<b>Wozu brauchst du das?</b> ' + s.beruf, ''));
     if ((s.check || []).length) {
       m.appendChild(el('h3', { html: 'Kurz-Check <span class="badge zaehlt-nicht">zählt nicht</span>' }));
@@ -482,6 +548,7 @@
       m.appendChild(sum);
     }
     m.appendChild(fertigMeldung);
+    if (glossar()) m.appendChild(glossar());
     r.appendChild(m);
     if (s.steckbrief) r.appendChild(el('aside', { class: 'seite' }, el('div', { class: 'card' }, [el('div', { class: 'klein', text: 'Steckbrief' }), el('div', { html: s.steckbrief })])));
     haupt.appendChild(r);
@@ -527,6 +594,7 @@
       tb.appendChild(el('span', { class: 'klein', text: 'Tipps zählen nicht gegen dich. ' }));
       tb.appendChild(bt); m.appendChild(tb); m.appendChild(tl);
     }
+    if (u.mitdenken) m.appendChild(mitdenken(u.mitdenken));
     if (u.reflexion) {
       m.appendChild(el('h3', { text: 'Nachgedacht' }));
       m.appendChild(el('p', { html: u.reflexion.frage }));
@@ -536,6 +604,7 @@
       m.appendChild(el('button', { type: 'button', text: 'Mit Musterantwort vergleichen', onclick: function () { mu.innerHTML = ''; mu.appendChild(el('div', { class: 'muster', html: '<b>Musterantwort:</b> ' + u.reflexion.muster })); } }));
       m.appendChild(mu);
     }
+    if (glossar()) m.appendChild(glossar());
     r.appendChild(m);
     if (u.steckbrief) r.appendChild(el('aside', { class: 'seite' }, el('div', { class: 'card' }, [el('div', { class: 'klein', text: 'Steckbrief' }), el('div', { html: u.steckbrief })])));
     haupt.appendChild(r);
@@ -555,7 +624,7 @@
     var c = el('div', { class: 'card' });
     haupt.appendChild(c);
     if (!nwLauf || nwLauf.phase === 'fertig') {
-      c.appendChild(el('h2', { text: '③ Abschlusscheck' }));  // Anpassung gegenüber PING v1.3: Begriff des Frameworks
+      c.appendChild(el('h2', { text: '③ Abschlusscheck' }));  // Anpassung gegenüber Lernpaket-Kompass v1.2: Begriff des Frameworks
       if (NW.einleitung) c.appendChild(figur(NW.einleitung));
       c.appendChild(el('ul', {}, [
         el('li', { html: NW.teilA ? '<b>Teil A:</b> eine Aufgabe aus einer neuen Situation, ohne Tipps.' : null }),
@@ -746,19 +815,22 @@
       });
       h += '</ol>';
     }
-    return h;
+    return h + '<p class="klein druckfuss">' + esc(druckVermerk()) + '</p>';
   }
   function ergebnisHtml(name) {
     var h = '<h1>Ergebnis: ' + esc(P.titel || '') + '</h1><p>Name: <b>' + esc(name || '________________') + '</b> · Datum: ' + new Date().toLocaleDateString('de-DE') + '</p>';
     h += '<p>Bestes Ergebnis im Abschlusscheck: <b>' + S.best + ' %</b> (' + (S.best >= BESTEHEN ? 'bestanden' : 'nicht bestanden') + ', Grenze ' + BESTEHEN + ' %) · Versuche: ' + S.n + '</p>';
     h += '<table class="tab"><tr><th>Lernziel</th><th>Letzter Versuch</th><th>Selbsteinschätzung vorher → nachher</th></tr>';
     LZ.forEach(function (z) { h += '<tr><td><b>' + esc(z.id) + '</b> ' + z.text + '</td><td>' + (S.lz[z.id] || 0) + ' %</td><td>' + (S.se[z.id] || '–') + ' → ' + (S.sn[z.id] || '–') + ' (von 5)</td></tr>'; });
-    return h + '</table>';
+    return h + '</table><p class="klein druckfuss">' + esc(druckVermerk()) + '</p>';
+  }
+  function druckVermerk() {
+    return 'Lernpaket „' + (P.titel || '') + '“' + (P.version ? ' · Version ' + P.version : '') + ' · gedruckt am ' + new Date().toLocaleDateString('de-DE');
   }
 
   /* ---------- Schnittstelle für automatische Tests ---------- */
   window.LERNPAKET = {
-    version: '1.0',
+    version: '1.2',
     pruefeInhalt: pruefeInhalt,
     zustand: function () { return JSON.parse(JSON.stringify(S)); },
     ansicht: function () { return ANSICHT; },

@@ -1,6 +1,6 @@
 ---
 name: "segel-material-erstellen"
-description: "Geführter Ablauf zum Erstellen von Unterrichtsmaterial nach SeGeL (SCORM-Lernpakete im PING-Standard, Guides, Checklisten, Selbstüberprüfungen, Aufgaben): Klären, Entwerfen und Bauen mit Prüfskripten, Abnahme, Auslieferung, Auswertung nach dem Einsatz. Nutzen, sobald eine Lehrkraft neues Material erstellen, vorhandenes überarbeiten oder ein Lernpaket auswerten will."
+description: "Geführter Ablauf zum Erstellen von Unterrichtsmaterial nach SeGeL (SCORM-Lernpakete im Kompass-Standard, Guides, Checklisten, Selbstüberprüfungen, Aufgaben): Klären, Entwerfen und Bauen mit Prüfskripten, Abnahme, Auslieferung, Auswertung nach dem Einsatz. Nutzen, sobald eine Lehrkraft neues Material erstellen, vorhandenes überarbeiten oder ein Lernpaket auswerten will."
 ---
 
 # Unterrichtsmaterial erstellen (SeGeL)
@@ -10,7 +10,7 @@ Du begleitest eine Lehrkraft vom Lernproblem bis zum fertigen, erprobten Materia
 ## Zwei Ebenen
 
 1. **Gemeinsame Standards – gelten immer.** Die Prinzipien P1–P13 und Grundsätze G1–G6 in `references/prinzipien.md`. Die Abnahme prüft sie unabhängig von Materialart und Technik. Begründungen für Rückfragen: `references/lernforschung.md`.
-2. **Standardvorgehen – Abweichen möglich.** SCORM-Lernpakete entstehen standardmäßig im PING-Format mit der Paketvorlage in `vorlage/` (Struktur und Technik: `references/scorm-paket.md`). Weicht ein Material davon ab (z. B. eigene Konsolen-Simulation, anderes Bedienkonzept, kein SCORM), halte die Abweichung mit Begründung in `STATUS.md` unter „Entscheidungen“ fest. Die Standards gelten trotzdem.
+2. **Standardvorgehen – Abweichen möglich.** SCORM-Lernpakete entstehen standardmäßig im Format des Lernpaket-Kompass (früher PING) mit der Paketvorlage in `vorlage/` (Struktur und Technik: `references/scorm-paket.md`). Weicht ein Material davon ab (z. B. eigene Konsolen-Simulation, anderes Bedienkonzept, kein SCORM), halte die Abweichung mit Begründung in `STATUS.md` unter „Entscheidungen“ fest. Die Standards gelten trotzdem.
 
 Die Grundsätze in Kurzform: **G1** Frustration vermeiden (weder Über- noch Unterforderung, Material soll Spaß machen) · **G2** nichts verlangen, was nicht eingeführt ist · **G3** nicht ratbar · **G4** Rückmeldung am tatsächlichen Zustand · **G5** zurücksetzbar · **G6** echt statt aus dem Gedächtnis.
 
@@ -25,11 +25,11 @@ Die Grundsätze in Kurzform: **G1** Frustration vermeiden (weder Über- noch Unt
 ## Phase 1: Klären und Zielen
 
 1. **Bringt die Lehrkraft vorhandenes Material mit** (abgelegt in `eingang/`), mach zuerst eine Bestandsaufnahme gegen Standards und Katalog (`references/muster-katalog.md`), gib eine Einschätzung in wenigen Punkten und frage dann gezielt nach.
-2. **Steckbrief** (in `STATUS.md`) – erfrage nacheinander, eine Frage pro Nachricht, bevorzugt mit Auswahlmöglichkeiten; was du ableiten kannst, fragst du nicht:
+2. **Steckbrief** (in `STATUS.md`) – erfrage nacheinander, eine Frage pro Nachricht; hat sie absehbare Antworten (Klasse, Dauer, Einsatzform, Ja/Nein, Wahl zwischen deinen Vorschlägen), stellst du sie zum Anklicken, sofern deine Umgebung ein Werkzeug für Rückfragen mit Antwortknöpfen hat (zwei bis vier Optionen, dein Vorschlag zuerst, eigene Antwort bleibt möglich); was du ableiten kannst, fragst du nicht:
    - **Lernproblem:** Was können die Lernenden bisher nicht sicher, woran merkt man das? Ein Material löst ein Lernproblem.
    - **Rahmen:** Fach, Beruf, Jahrgang, Lehrplanbezug, Geräte (PC, Tablet, beides), Materialart.
-   - **Lernende:** Vorwissen, Motivation, Erfahrung mit selbstständigem Lernen.
-   - **Einsatzform:** Standard ist SeGeL (das Material trägt die ganze Einheit); einzelne Teile sollen auch im klassischen Unterricht nutzbar sein.
+   - **Lernende:** Vorwissen, Motivation, Erfahrung mit selbstständigem Lernen. Gibt es Lernende, die noch Deutsch lernen, oder mit Hör- oder Sehbeeinträchtigung? Das beeinflusst Sprache, Glossar und Ton.
+   - **Einsatzform:** Standard ist SeGeL (das Material trägt die ganze Einheit); einzelne Teile sollen auch im klassischen Unterricht nutzbar sein. Einen **freiwilligen Input mit Tafelbild** (etwa 20 Minuten) nur ansprechen, wenn sich das Thema gut gemeinsam vorführen lässt (Simulation, Ablauf, Vergleich).
    - **Typische Fehler und Fehlvorstellungen:** mindestens drei, besser fünf – die wichtigste Frage, denn daraus entstehen Distraktoren, Feedback und Merkblatt. Gib Beispiele, um die Erinnerung anzustoßen.
    - **Handlungssituation:** Betrieb, Kunde oder Alltagssituation mit Auftrag, ggf. eine wiederkehrende Figur der Lehrkraft. Fehlt eine Idee, schlage zwei Varianten vor.
    - **Gesamtzeit** als Summe aus Input, Übung, Selbstüberprüfung bzw. Abschlusscheck und Vertiefung. Nichts außerhalb dieses Rahmens planen, außer die Lehrkraft entscheidet es ausdrücklich.
@@ -39,7 +39,7 @@ Die Grundsätze in Kurzform: **G1** Frustration vermeiden (weder Über- noch Unt
 
 ## Phase 2: Entwerfen und Bauen
 
-1. **Drehbuch** (`templates/DREHBUCH.md`, abgelegt in `quellen/`): Handlungssituation, Abschnitte von einfach nach komplex (höchstens etwa acht Stationen, sonst zwei Materialien), Lösungsbeispiele, Übungen mit drei gestuften Tipps, Kurz-Checks, Abschluss mit Merkblatt. Gliederung mit Zeitspalte in `STATUS.md`; die Summe entspricht der Gesamtzeit. Hänge die Prüftabelle P1–P13/G1–G6 an und löse offene Muss-Punkte vor dem Bauen oder nenne sie ausdrücklich.
+1. **Drehbuch** (`templates/DREHBUCH.md`, abgelegt in `quellen/`): Handlungssituation, Abschnitte von einfach nach komplex (höchstens etwa acht Stationen, sonst zwei Materialien), Lösungsbeispiele mit Frage zum Selbsterklären, einige Aufträge zum Mitdenken, Übungen mit drei gestuften Tipps, Kurz-Checks, Abschluss mit Merkblatt; Glossar aller Fachbegriffe (die wichtigsten vorab); Ton nur mit Text; bei gewünschtem Input den Abschnitt „Input und Tafelbild“. Gliederung mit Zeitspalte in `STATUS.md`; die Summe entspricht der Gesamtzeit. Hänge die Prüftabelle P1–P13/G1–G6 an und löse offene Muss-Punkte vor dem Bauen oder nenne sie ausdrücklich.
 2. **Fragen** nach `references/fragen.md`: Distraktoren aus den gesammelten Fehlern, Feedback zu jeder Antwort, stabile IDs. Zeig der Lehrkraft die Prüftabelle, damit sie jede Frage fachlich abnimmt.
 3. **Referenzinstallation bei Simulationen** (Konsole, Web-Anwendung): Zielsoftware in der Zielversion echt ausführen (falls in der Umgebung möglich; sonst die Lehrkraft um Rohausgaben bitten) und Ausgaben, Hilfetexte (`--help`, `-h`), Fehlermeldungen für typische Fehler (bei Konfigurationsdateien: Einrückung, Tippfehler im Schlüssel, falscher Typ) bzw. HTML-Seiten und Screenshots unter `quellen/referenz/` ablegen. Ausgaben, die von der Terminalbreite abhängen, in der Spaltenbreite der simulierten Konsole aufnehmen. Lange Wartezeiten der echten Software dürfen verkürzt werden – als Entscheidung der Lehrkraft vorlegen.
 4. **Bauen:** Bei SCORM-Paketen mit der Vorlage (`references/scorm-paket.md`, Inhaltsformat in `references/paketformat.md`). Bei interaktiven Paketen mit Simulation gilt: ein Szenario als Datenstruktur (z. B. `quellen/szenario.json`), Fragen, Antworten und Ausgaben werden daraus erzeugt, nie getrennt gepflegt. Gestaltung nach `references/gestaltung.md`.
@@ -78,7 +78,7 @@ Die Skripte liegen in `scripts/` dieses Skills und brauchen Python 3. Sie geben 
 |---|---|---|
 | `pruefe_checkliste.py <datei> …` | Checklistenpunkte beginnen mit „Ich kann“ (auch als gemeinsame Kopfzeile), sind atomar | nach jedem Zyklus mit Checkliste |
 | `pruefe_scorm.py <ordner-oder-zip>` | Manifest, Ressourcen, Navigation, Querverweise – für jedes SCORM-Paket | Abnahme und Auslieferung |
-| `paket.py neu <ordner> --id ping-<name> --titel "…"` / `paket.py zip <ordner>` | legt ein Paket aus der Vorlage an bzw. packt es (Manifest aktualisieren, ZIP) | Bauen, Auslieferung |
+| `paket.py neu <ordner> --id <präfix>-<name> --titel "…"` / `paket.py zip <ordner>` | legt ein Paket aus der Vorlage an bzw. packt es (Manifest aktualisieren, ZIP) | Bauen, Auslieferung |
 | `pruefe_paket.py <ordner-oder-zip> [--bilder <ordner>]` | Paket aus der Vorlage: Standards der Technik, löst alles mit der Musterlösung in einem nachgebauten SCORM-Player, Datenübergabe, Wiedereinstieg, schmale Bildschirme, ein Weiter-Knopf; Ausgabe als Ampel | nach jedem Zyklus, Abnahme |
 | `auswerten.py <export> …` | Berichtsexport anonymisieren und je Frage und Lernziel auswerten | Phase 5 |
 

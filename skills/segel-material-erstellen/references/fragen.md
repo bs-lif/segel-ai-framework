@@ -1,6 +1,6 @@
 # Fragen erstellen
 
-Regeln für Kurz-Checks, Abschlusscheck, Vorwissens-Check, Selbsttest und Selbstüberprüfungen. Fragen wirken stark (Abrufen festigt, P5; erklärendes Feedback, P6) und schaden am meisten, wenn sie fachlich falsch sind – deshalb nimmt die Lehrkraft jede Frage ab. Inhaltliche Grundlage: PING-Skill „fragenpool-erstellen“ (Bezug: PING v1.3). Das technische Format für SCORM-Pakete steht in `paketformat.md`.
+Regeln für Kurz-Checks, Abschlusscheck, Vorwissens-Check, Selbsttest und Selbstüberprüfungen. Fragen wirken stark (Abrufen festigt, P5; erklärendes Feedback, P6) und schaden am meisten, wenn sie fachlich falsch sind – deshalb nimmt die Lehrkraft jede Frage ab. Inhaltliche Grundlage: Kompass-Skill „fragenpool-erstellen“ (Bezug: Lernpaket-Kompass v1.2). Das technische Format für SCORM-Pakete steht in `paketformat.md`.
 
 ## Was du vorher brauchst
 

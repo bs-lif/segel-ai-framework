@@ -16,6 +16,8 @@
    Jede Frage: id, lz, einsatz (['check'|'nachweis'|'uebung'|'vorwissen']),
    frage, erklaerung (warum die richtige Antwort richtig ist), optional bild.
 
+   Optional: tafel – Tafelbild für einen freiwilligen Input (siehe unten).
+
    Interaktionen (Station, Übung, Nachweis Teil A) sind Funktionen
    function (box, api) { … return { loesen: fn, auswerten: fn } }.
      api.erledigt(text)       Aufgabe gelöst (Station/Übung)
@@ -77,7 +79,7 @@ var IP_SVG = function (bits) {
 };
 
 window.PAKET = {
-  id: 'ping-bits-und-bytes',          // = Identifier im imsmanifest.xml
+  id: 'beispiel-bits-und-bytes',          // = Identifier im imsmanifest.xml
   titel: 'Bits & Bytes',
   untertitel: 'Binärzahlen lesen und schreiben',
   version: '1.0',
@@ -94,6 +96,16 @@ window.PAKET = {
 
   vorwissen: ['F3', 'F10', 'F15'],
 
+  // Glossar: alle Fachbegriffe; vorab: true = wird am Anfang vorgestellt (Vortraining)
+  glossar: [
+    { begriff: 'Bit', erklaerung: 'Kleinste Informationseinheit: 0 oder 1.', vorab: true },
+    { begriff: 'Byte', erklaerung: '8 Bit zusammen. Ein Byte kann 256 verschiedene Werte haben (0 bis 255).', vorab: true },
+    { begriff: 'Stellenwert', erklaerung: 'Wie viel eine Stelle in einer Zahl wert ist. Im Binärsystem: 1, 2, 4, 8, 16, 32, 64, 128 (von rechts).', vorab: true },
+    { begriff: 'Binärzahl', erklaerung: 'Zahl, die nur aus 0 und 1 besteht (Zweiersystem).' },
+    { begriff: 'Dezimalzahl', erklaerung: 'Zahl im gewohnten Zehnersystem mit den Ziffern 0 bis 9.' },
+    { begriff: 'Oktett', erklaerung: 'Ein Byte als Teil einer IPv4-Adresse. Eine IPv4-Adresse hat vier Oktette, z. B. 192.168.1.10.' }
+  ],
+
   stationen: [
     {
       id: 'S1', titel: 'Stellenwerte: So zählt ein Byte', lz: ['LZ1'],
@@ -107,7 +119,8 @@ window.PAKET = {
           { tun: 'Stellenwerte über die Bits schreiben: 128 64 32 16 8 4 2 1.', warum: 'Jede Stelle ist doppelt so viel wert wie die rechts daneben.' },
           { tun: 'Die Stellenwerte aller Einsen herausschreiben: 128, 32, 16, 2.', warum: 'Eine 0 bedeutet „Stelle nicht benutzt“.' },
           { tun: 'Addieren: 128 + 32 + 16 + 2 = <b>178</b>.', warum: 'Der Wert der Zahl ist die Summe der benutzten Stellenwerte.' }
-        ]
+        ],
+        selbsterklaerung: { schritt: 2, frage: 'Warum schreibst du nur die Stellenwerte der Einsen heraus und nicht alle acht?' }
       },
       interaktion: function (box, api) {
         box.appendChild(Object.assign(document.createElement('p'), { innerHTML: 'Probiere es aus: Schalte die Bits so, dass die Router-Anzeige <code>11000000</code> entsteht. Welcher Dezimalwert erscheint?' }));
@@ -130,7 +143,8 @@ window.PAKET = {
           { tun: '64 passt in 72 → <b>1</b>, Rest 8.', warum: 'Mit dem Rest geht es weiter, nicht mit 200.' },
           { tun: '32 und 16 passen nicht in 8 → <b>0</b>, <b>0</b>. 8 passt → <b>1</b>, Rest 0.', warum: 'Eine Stelle, die nicht passt, bekommt eine 0 – sie bleibt trotzdem stehen.' },
           { tun: 'Die übrigen Stellen 4, 2, 1 → <b>0</b>. Ergebnis: <b>11001000</b>.', warum: 'Ein Byte hat immer acht Stellen, auch wenn vorne oder hinten Nullen stehen.' }
-        ]
+        ],
+        selbsterklaerung: { schritt: 2, frage: 'Warum rechnest du nach dem ersten Schritt mit 72 weiter und nicht mehr mit 200?' }
       },
       interaktion: function (box, api) {
         box.appendChild(Object.assign(document.createElement('p'), { innerHTML: 'Stelle 200 mit den Schaltern ein.' }));
@@ -152,8 +166,10 @@ window.PAKET = {
           { tun: 'Jedes Bit hat 2 Möglichkeiten.', warum: 'Es ist entweder 0 oder 1.' },
           { tun: 'Für 3 Bit: 2 · 2 · 2 = 2³ = <b>8</b>.', warum: 'Jede Möglichkeit des ersten Bits lässt sich mit jeder des zweiten und dritten kombinieren.' },
           { tun: 'Die Werte reichen von 0 (000) bis 7 (111).', warum: 'Die 0 ist einer der 8 Werte – deshalb ist der größte Wert 7, nicht 8.' }
-        ]
+        ],
+        selbsterklaerung: { schritt: 3, frage: 'Es gibt 8 Werte – warum ist der größte trotzdem nur 7?' }
       },
+      mitdenken: { auftrag: 'Zeichne auf Papier eine Tabelle für 1 bis 4 Bit mit der Anzahl der Werte. Erkläre deinem Sitznachbarn mit der Tabelle, warum sich die Anzahl mit jedem Bit verdoppelt.', muster: '1 Bit: 2 · 2 Bit: 4 · 3 Bit: 8 · 4 Bit: 16. Das neue Bit kann bei jedem bisherigen Muster 0 oder 1 sein – aus jedem Muster werden zwei.' },
       beruf: 'In einem Netz mit 8 Bit für Geräte gibt es 256 Bitmuster. Zwei davon sind reserviert, deshalb bleiben 254 Adressen für Geräte.',
       check: ['F14', 'F11', 'F13']
     }
@@ -314,5 +330,64 @@ window.PAKET = {
     { id: 'F20', lz: 'LZ3', einsatz: ['uebung'], typ: 'zahl', frage: 'Wie viele verschiedene Bitmuster gibt es mit <b>6 Bit</b>?', zahl: { wert: 64 },
       typisch: [{ wert: 63, feedback: '63 ist der größte Wert. Mit der 0 sind es 64 Muster.' }, { wert: 12, feedback: '12 wäre 2 · 6. Es heißt aber 2 hoch 6.' }],
       erklaerung: '2⁶ = 64.' }
-  ]
+  ],
+
+  /* ---------- Tafelbild für einen freiwilligen Input (optional, Leitfaden C2) ----------
+     Wird von js/tafel.js angezeigt: groß, ohne erklärenden Text, Schritt für Schritt.
+     Jede Szene zeigt nur, was auch in ihrer Station vorkommt (station), die Erklärung
+     ist für Schüler zuschaltbar. Werkzeuge mit api.werkzeug() erscheinen unten in der
+     Leiste, mit Tastenkürzel. Ablaufplan für die Lehrkraft: lehrer/input-ablauf.md.
+     Pakete ohne Input lassen das Feld einfach weg. */
+  tafel: {
+    titel: 'Bits & Bytes – Überblick',
+    dauer: '15 Minuten',
+    szenen: [
+      { id: 'stellenwerte', titel: 'Stellenwerte', station: 'S1',
+        erklaerung: '<p>Jede der acht Stellen hat einen <b>Stellenwert</b>: rechts 1, nach links jeweils doppelt so viel.</p><p>Eine 1 bedeutet: Dieser Wert zählt mit. Die Zahl ist die Summe aller Stellenwerte mit einer 1.</p>',
+        zeichne: function (box, api) {
+          var b = bitSchalter(box, { zeigeSumme: false, beschriftung: 'Acht Bit-Schalter' });
+          var w = box.querySelector('.bitschalter');
+          w.style.maxWidth = '960px'; w.style.width = '100%'; w.style.margin = 'auto auto 0';
+          w.querySelectorAll('b').forEach(function (x) { x.style.fontSize = '3rem'; });
+          w.querySelectorAll('span').forEach(function (x) { x.style.fontSize = '1.3rem'; });
+          box.querySelector('.klein').style.cssText = 'text-align:center;font-size:2rem';
+          var dez = document.createElement('div');
+          dez.style.cssText = 'text-align:center;font-size:5rem;font-weight:800;margin:0 auto auto;visibility:hidden';
+          dez.setAttribute('aria-live', 'polite');
+          box.appendChild(dez);
+          function zeige() { dez.textContent = '= ' + b.wert(); }
+          box.addEventListener('click', zeige);
+          zeige();
+          api.werkzeug({ icon: '🔢', text: 'Dezimal', taste: 'd', typ: 'schalter', aktion: function (an) { dez.style.visibility = an ? 'visible' : 'hidden'; } });
+          api.werkzeug({ icon: '🎲', text: 'Zufall', taste: 'z', aktion: function () { b.setze(Math.floor(Math.random() * 256)); zeige(); } });
+          api.werkzeug({ icon: '↺', text: 'Leeren', taste: 'r', aktion: function () { b.setze(0); zeige(); } });
+          return {};
+        } },
+      { id: 'anzahl', titel: 'Wie viele Werte?', station: 'S3',
+        erklaerung: '<p>Mit jedem zusätzlichen Bit <b>verdoppelt</b> sich die Zahl der möglichen Muster: 2, 4, 8, 16 …</p><p>Mit n Bit gibt es 2<sup>n</sup> Werte, von 0 bis 2<sup>n</sup> − 1.</p>',
+        zeichne: function (box, api) {
+          var n = 1;
+          var reihe = document.createElement('div');
+          reihe.style.cssText = 'display:flex;justify-content:center;gap:10px;margin:auto auto 0;flex-wrap:wrap';
+          var muster = document.createElement('div');
+          muster.style.cssText = 'text-align:center;font-family:ui-monospace,Consolas,monospace;font-size:1.6rem;color:var(--ink-soft);min-height:2.4em;margin:1rem 0';
+          var zahl = document.createElement('div');
+          zahl.style.cssText = 'text-align:center;font-size:5rem;font-weight:800;margin:0 auto auto;visibility:hidden';
+          box.appendChild(reihe); box.appendChild(muster); box.appendChild(zahl);
+          function zeichne() {
+            reihe.innerHTML = '';
+            for (var i = 0; i < n; i++) { var k = document.createElement('div'); k.style.cssText = 'width:72px;height:88px;border:2px solid var(--line);border-radius:10px;background:var(--card);display:flex;align-items:center;justify-content:center;font-size:2.4rem;font-weight:800'; k.textContent = '?'; reihe.appendChild(k); }
+            var alle = [];
+            if (n <= 3) for (var m = 0; m < Math.pow(2, n); m++) alle.push((m + 256).toString(2).slice(-n));
+            muster.textContent = alle.join('  ');
+            zahl.textContent = '2' + ['⁰', '¹', '²', '³', '⁴', '⁵', '⁶', '⁷', '⁸'][n] + ' = ' + Math.pow(2, n);
+          }
+          api.werkzeug({ icon: '−', text: 'Bit', taste: '-', aktion: function () { if (n > 1) { n--; zeichne(); } } });
+          api.werkzeug({ icon: '+', text: 'Bit', taste: '+', aktion: function () { if (n < 8) { n++; zeichne(); } } });
+          api.werkzeug({ icon: '🔢', text: 'Anzahl', taste: 'a', typ: 'schalter', aktion: function (an) { zahl.style.visibility = an ? 'visible' : 'hidden'; } });
+          zeichne();
+          return {};
+        } }
+    ]
+  }
 };

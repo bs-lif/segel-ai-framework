@@ -2,7 +2,7 @@
 
 Worauf sich die Prinzipien (`prinzipien.md`) stützen. Für Rückfragen der Lehrkraft und für Begründungen in der Beratung – nicht in Schülertexte übernehmen.
 
-Inhaltliche Grundlage: Leitfaden „Evidenzbasierte Lernpakete (SCORM) gestalten“ von Dennis Busch, PING v1.3 (https://github.com/dennismarcbusch/PING, `docs/leitfaden-lernpakete.md`), dort mit vollständigem Literaturverzeichnis.
+Inhaltliche Grundlage: Leitfaden „Lernpaket-Kompass – Leitfaden für interaktive Lernpakete“ von Dennis Busch, Lernpaket-Kompass v1.2 (https://github.com/dennismarcbusch/lernpaket-kompass, `docs/leitfaden-lernpakete.md`), dort mit vollständigem Literaturverzeichnis.
 
 ## Zahlen richtig lesen
 
@@ -24,6 +24,7 @@ Digitales Lernen ist herkömmlichem Unterricht im Mittel leicht überlegen, wenn
 |---|---|---|---|
 | Lernen an ganzen Aufgaben (4C/ID, Merrill) | Vollständige, realistische Aufgaben statt zerstückeltem Stoff; Aufgaben werden schwerer, Hilfe weniger; Hintergrundwissen und Bedienhinweise getrennt | groß (*d* ≈ 0,8), besonders in der Berufsbildung | durchgehende Handlungssituation, Hilfe schrittweise zurücknehmen |
 | Bildschirmgestaltung (Mayer) | Bild und Wort laufen über zwei Kanäle mit begrenzter Kapazität; Unnötiges weglassen, Schwieriges portionieren | viele Experimente, realistisch klein bis mittel (*g* ≈ 0,4), vor allem für Einsteiger | verbindliche Gestaltungsregeln (`gestaltung.md`) |
+| Kognitive Belastung (Sweller, Mayer) | Das Arbeitsgedächtnis fasst wenig; Belastung durch den Stoff selbst (nur portionierbar), durch ungünstige Gestaltung (vermeiden) und durch die eigentliche Lernanstrengung (anregen: Selbsterklären, Skizzieren, Zusammenfassen) | theoretisch tragend; Belastungsarten kaum messbar, „lernbezogene Belastung“ nachträglich beliebig deutbar (de Jong 2010) | Lösungsbeispiele mit Frage zum Selbsterklären (*g* ≈ 0,43, Bisra et al. 2018), Aufträge zum Mitdenken, Glossar mit Vortraining |
 | Meisterlehre (Cognitive Apprenticeship) | Vormachen mit lautem Denken, begleiten, Hilfe zurücknehmen, erklären und reflektieren lassen | viele Praxisberichte, wenige strenge Studien | Figur als „Ausbilderin“, gestufte Tipps, Reflexionsfragen |
 | Gestaltungsorientierte Mediendidaktik (Kerres) | Erst das Lernproblem, dann das Medium; jedes Angebot braucht Orientierung, Lernmaterial und Lernaufgaben | Standardwerk, bündelt die Forschung | Planung beginnt mit dem Lernproblem; einfache Verzweigung statt „intelligenter“ Lernpfade |
 | Lernen sichtbar machen (Hattie) | Klare Ziele, Erfolgskriterien, Rückmeldung | riesige Datenbasis, Verrechnung umstritten | als Landkarte nutzen, nicht als Rangliste |
@@ -59,4 +60,4 @@ Die Forschung zur Selbststeuerung bestätigt das SeGeL-Konzept – unter einer B
 
 ## Wichtige Quellen
 
-Kerres, M. (2024). *Mediendidaktik* (6. Aufl.). · Mayer, R. E. (2021). *Multimedia learning* (3. Aufl.). · van Merriënboer, J. & Kirschner, P. (2017). *Ten steps to complex learning*. · Adesope et al. (2017), Übungstests. · Alfieri et al. (2011), Entdeckendes Lernen. · Karich, Burns & Maki (2014), Lernersteuerung. · Dignath & Büttner (2008), Selbstreguliertes Lernen. · Wisniewski, Zierer & Hattie (2020), Feedback. · Kalyuga (2007), Expertise-Umkehr. · Vollständige Angaben und Links im PING-Leitfaden.
+Kerres, M. (2024). *Mediendidaktik* (6. Aufl.). · Mayer, R. E. (2021). *Multimedia learning* (3. Aufl.). · van Merriënboer, J. & Kirschner, P. (2017). *Ten steps to complex learning*. · Adesope et al. (2017), Übungstests. · Alfieri et al. (2011), Entdeckendes Lernen. · Karich, Burns & Maki (2014), Lernersteuerung. · Dignath & Büttner (2008), Selbstreguliertes Lernen. · Wisniewski, Zierer & Hattie (2020), Feedback. · Kalyuga (2007), Expertise-Umkehr. · Sweller (1988), kognitive Belastung. · de Jong (2010), Kritik daran. · Bisra et al. (2018), Selbsterklären. · Fiorella & Mayer (2016), generatives Lernen. · Vollständige Angaben und Links im Leitfaden des Lernpaket-Kompass.

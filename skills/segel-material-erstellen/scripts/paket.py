@@ -1,40 +1,41 @@
 #!/usr/bin/env python3
-"""Werkzeug zum Bauen von Lernpaketen aus der PING-Vorlage.
+"""Werkzeug zum Bauen von Lernpaketen aus der Kompass-Vorlage.
 
-  python3 paket.py neu <zielordner> --id ping-<name> --titel "Titel"
+  python3 paket.py neu <zielordner> --id <präfix>-<name> --titel "Titel"
       Kopiert die Vorlage (Engine, Stil, Beispielinhalt, Manifest) in einen neuen Ordner
       und setzt Identifier und Titel im Manifest. Danach js/inhalt.js ersetzen.
 
   python3 paket.py zip <paketordner> [--aus <datei.zip>]
-      Aktualisiert die Dateiliste im Manifest, gleicht Titel und masteryscore mit
+      Aktualisiert die Dateiliste im Manifest, gleicht Titel, Version und masteryscore mit
       js/inhalt.js ab und packt das ZIP so, dass imsmanifest.xml im Wurzelverzeichnis liegt.
       Standardname: <name>_scorm12.zip neben dem Paketordner.
 """
 import argparse, os, re, shutil, sys, zipfile
 from xml.sax.saxutils import escape
 
-# Anpassung gegenüber PING v1.3: UTF-8-Ausgabe, damit Umlaute und Ampel-Symbole unter Windows nicht abbrechen.
+# Anpassung gegenüber Lernpaket-Kompass v1.2: UTF-8-Ausgabe, damit Umlaute und Ampel-Symbole unter Windows nicht abbrechen.
 if hasattr(sys.stdout, 'reconfigure'):
     sys.stdout.reconfigure(encoding='utf-8')
 
 HIER = os.path.dirname(os.path.abspath(__file__))
 VORLAGE = os.path.join(HIER, '..', 'vorlage')
+ID_MUSTER = re.compile(r'[a-z0-9]+-[a-z0-9]+(?:-[a-z0-9]+)*')  # <präfix>-<name>
 
 
 def neu(a):
-    if not re.fullmatch(r'ping-[a-z0-9-]+', a.id):
-        sys.exit('Die id muss "ping-" plus Kleinbuchstaben, Ziffern und Bindestriche sein, z. B. ping-dreisatz.')
+    if not ID_MUSTER.fullmatch(a.id):
+        sys.exit('Die id muss "<präfix>-<name>" lauten, nur Kleinbuchstaben, Ziffern und Bindestriche, z. B. ping-dreisatz oder bwl-dreisatz.')
     if os.path.exists(a.ziel) and os.listdir(a.ziel):
         sys.exit(f'Der Ordner {a.ziel} existiert schon und ist nicht leer.')
     shutil.copytree(VORLAGE, a.ziel, dirs_exist_ok=True)
     m = os.path.join(a.ziel, 'imsmanifest.xml')
     t = open(m, encoding='utf-8').read()
-    t = re.sub(r'identifier="ping-[^"]*"', f'identifier="{a.id}"', t, count=1)
+    t = re.sub(r'identifier="[^"]*"', f'identifier="{a.id}"', t, count=1)
     t = re.sub(r'<title>[^<]*</title>', f'<title>{escape(a.titel)}</title>', t)
     open(m, 'w', encoding='utf-8').write(t)
     i = os.path.join(a.ziel, 'js', 'inhalt.js')
     s = open(i, encoding='utf-8').read()
-    s = re.sub(r"id: 'ping-[^']*'", f"id: '{a.id}'", s, count=1)
+    s = re.sub(r"id: '[^']*'", f"id: '{a.id}'", s, count=1)
     s = re.sub(r"titel: '[^']*'", "titel: " + repr(a.titel), s, count=1)
     open(i, 'w', encoding='utf-8').write(s)
     print(f'Neues Paket in {a.ziel} angelegt (id {a.id}). Als Nächstes js/inhalt.js mit den Inhalten füllen.')
@@ -55,7 +56,10 @@ def zippen(a):
         ti = re.search(r"titel:\s*'((?:[^'\\]|\\.)*)'", s)
         if ti:
             t = re.sub(r'<title>[^<]*</title>', f'<title>{escape(ti.group(1))}</title>', t)
-        i = re.search(r"id:\s*'(ping-[^']*)'", s)
+        v = re.search(r"\bversion:\s*'(\d+\.\d+(?:\.\d+)?)'", s)
+        if v:
+            t = re.sub(r'(<manifest[^>]*?\sversion=")[^"]*"', r'\g<1>' + v.group(1) + '"', t, count=1)
+        i = re.search(r"id:\s*'([a-z0-9]+-[a-z0-9-]+)'", s)
         if i:
             t = re.sub(r'(<manifest[^>]*?identifier=")[^"]*"', r'\g<1>' + i.group(1) + '"', t, count=1)
     dateien = []
@@ -68,7 +72,8 @@ def zippen(a):
     liste = '\n'.join(f'      <file href="{escape(x)}"/>' for x in dateien)
     t = re.sub(r'(<resource\s[^>]*>)(.*?)(\s*</resource>)', lambda mm: mm.group(1) + '\n' + liste + mm.group(3), t, count=1, flags=re.S)
     open(m, 'w', encoding='utf-8').write(t)
-    name = re.search(r'<manifest[^>]*identifier="(?:ping-)?([^"]+)"', t).group(1)
+    ident = re.search(r'<manifest[^>]*identifier="([^"]+)"', t).group(1)
+    name = ident.split('-', 1)[1] if ID_MUSTER.fullmatch(ident) else ident  # ZIP ohne Präfix: <name>_scorm12.zip
     aus = a.aus or os.path.join(os.path.dirname(root), f'{name}_scorm12.zip')
     if os.path.exists(aus):
         os.remove(aus)

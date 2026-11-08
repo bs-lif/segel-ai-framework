@@ -29,6 +29,7 @@ Grundlage für die Beratung in Phase 1 und für die Durchsicht von Entwürfen. I
 | A21 | Fertiger Spickzettel | Cheat Sheet zum Herunterladen statt eigener Sicherung, womöglich vor dem Abschlusscheck | Merkblatt zum Ergänzen nach dem Abschlusscheck (M16) | P13 |
 | A22 | Rangliste | Vergleich mit Mitlernenden, Punkte als Selbstzweck | Fortschritt an Lernzielen oder eigener früherer Leistung | P12 |
 | A23 | Lerntypen-Varianten | Eigene Fassungen für „visuelle“ oder „auditive“ Lerntypen | Nicht belegt – stattdessen Text und Bild zusammen für alle | P7 |
+| A24 | Verführerische Details | Interessante, aber unwichtige Nebenfakten, Deko-Bilder oder Witze mitten in der Erklärung | Weglassen; Unterhaltsames höchstens im Einstieg | P7 |
 
 ## Aktivierungsmuster
 
@@ -45,8 +46,11 @@ Grundlage für die Beratung in Phase 1 und für die Durchsicht von Entwürfen. I
 | M9 | Selbsterklärung | „Erkläre in zwei Sätzen …“, danach Musterlösung zum Vergleich | Nach Texten und Videos | P11 |
 | M10 | Peer-Check | Ergebnis mit Mitlernenden vergleichen oder gegenseitig erklären | Pull-Prinzip, Präsenzphasen | P11 |
 | M11 | Befehlskasten | Kasten „Befehle dieser Seite“ an fester Stelle vor der ersten Aufgabe: Syntax mit Platzhaltern, kein fertiger Aufgabenbefehl; Hilfe-Knopf nur für Hänger | Konsolen-Simulationen, gegen A12 | G2 |
-| M12 | Lösungsbeispiel zuerst | Vollständig gelöstes Beispiel mit Begründung je Schritt vor dem ersten eigenen Versuch, überspringbar | Neue Aufgabentypen, Einsteiger | P3 |
+| M12 | Lösungsbeispiel zuerst | Vollständig gelöstes Beispiel mit Begründung je Schritt vor dem ersten eigenen Versuch, überspringbar; an einem entscheidenden Schritt erst die Frage zum Selbsterklären, dann die Begründung aufklappen | Neue Aufgabentypen, Einsteiger | P3 |
 | M13 | Kurz-Check | 3–5 unbewertete Fragen am Abschnittsende, als „zählt nicht“ markiert, ab Abschnitt 3 mit Wiederholungsfrage | Jedes Material mit Abschnitten | P5, P10 |
 | M14 | Vorwissens-Check | Je Lernziel eine Frage am Anfang, daraus Empfehlung, was übersprungen werden kann | Heterogene Klassen | P3, P11 |
 | M15 | Selbsteinschätzung vorher/nachher | Je Lernziel „Das kann ich schon / noch nicht“ zu Beginn und nach dem Abschlusscheck | SeGeL, Selbststeuerung | P11 |
 | M16 | Merkblatt zum Ergänzen | Halb vorgefülltes Merkblatt je Lernziel nach dem Abschlusscheck, aus dem Gedächtnis ergänzen, mit Muster vergleichen, Selbsttest zum späteren Wiederholen | Abschluss, Lernportfolio | P13, P10 |
+| M17 | Glossar mit Vortraining | Alle Fachbegriffe jederzeit nachschlagbar, die drei bis fünf wichtigsten am Anfang vorgestellt | Begriffsreiche Themen, Lernende, die Deutsch lernen | P7 |
+| M18 | Mitdenken-Auftrag | Kurz skizzieren, in eigenen Worten zusammenfassen oder jemandem erklären, mit Muster zum Vergleich | Nach Stationen und Übungen | P3 |
+| M19 | Input mit Tafelbild | Freiwilliger Lehrer-Input mit den Bildern des Materials, textfrei, je Szene Vorhersagen → Klicken → Deuten | Simulationen, Abläufe, Vergleiche | P4, P7 |

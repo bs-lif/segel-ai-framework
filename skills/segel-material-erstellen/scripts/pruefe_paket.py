@@ -5,18 +5,20 @@ Aufruf:
     python3 pruefe_paket.py <ordner-oder-zip> [--bericht bericht.json] [--bilder ordner] [--ohne-browser]
 
 1. Statische Prüfung (immer): Manifest im Wurzelverzeichnis, SCORM 1.2, masteryscore 80,
-   Identifier mit Präfix "ping-", alle Dateien vorhanden und im Manifest, keine externen
+   Identifier im Format "<präfix>-<name>", alle Dateien vorhanden und im Manifest, keine externen
    Server, Größe, JavaScript-Syntax (wenn node installiert ist).
 2. Browser-Prüfung (wenn Python-Playwright mit Chromium installiert ist): lädt das Paket in
    einem nachgebauten SCORM-1.2-Player, löst bei Paketen aus der Vorlage alle Stationen,
    Übungen und den Nachweis mit der Musterlösung, prüft Datenübergabe, Wiedereinstieg,
    Konsolenfehler, Darstellung auf schmalen Bildschirmen und genau einen Weiter-Knopf.
+   Hat das Paket ein Tafelbild (PAKET.tafel), werden alle Szenen und Werkzeuge
+   durchgeschaltet und geprüft, dass das Tafelbild nichts an die Lernplattform schreibt.
 Ausgabe: Bericht als Text (Ampel je Punkt) und optional als JSON.
 """
 import argparse, functools, http.server, json, os, re, shutil, subprocess, sys, tempfile, threading, zipfile
 import xml.etree.ElementTree as ET
 
-# Anpassung gegenüber PING v1.3: UTF-8-Ausgabe, damit Umlaute und Ampel-Symbole unter Windows nicht abbrechen.
+# Anpassung gegenüber Lernpaket-Kompass v1.2: UTF-8-Ausgabe, damit Umlaute und Ampel-Symbole unter Windows nicht abbrechen.
 if hasattr(sys.stdout, 'reconfigure'):
     sys.stdout.reconfigure(encoding='utf-8')
 
@@ -52,7 +54,8 @@ def statisch(root):
     sv = r.find('.//c:schemaversion', ns)
     punkt(sv is not None and sv.text.strip() == '1.2', 'Format', f'SCORM-Version: {sv.text.strip() if sv is not None else "fehlt"} (Soll: 1.2).')
     ident = r.get('identifier', '')
-    punkt(ident.startswith('ping-'), 'Format', f'Manifest-Identifier "{ident}" ' + ('hat das Präfix ping-.' if ident.startswith('ping-') else 'sollte mit "ping-" beginnen.'), gelb=True)
+    id_ok = bool(re.fullmatch(r'[a-z0-9]+-[a-z0-9]+(?:-[a-z0-9]+)*', ident))
+    punkt(id_ok, 'Format', f'Manifest-Identifier "{ident}" ' + ('hat das Format <präfix>-<name>.' if id_ok else 'sollte "<präfix>-<name>" lauten (Kleinbuchstaben, Ziffern, Bindestriche).'), gelb=True)
     ms = r.find('.//a:masteryscore', ns)
     msv = ms.text.strip() if ms is not None and ms.text else None
     punkt(msv == '80', 'Datenübergabe', f'masteryscore im Manifest: {msv or "fehlt"} (Soll: 80).')
@@ -84,6 +87,10 @@ def statisch(root):
         punkt(feld in alles, 'Datenübergabe', f'{text} ({feld}) ' + ('wird verwendet.' if feld in alles else 'fehlt im Code.'), gelb=feld == 'cmi.core.student_name')
     punkt('cmi.objectives' in alles, 'Datenübergabe', 'Ergebnisse je Lernziel (cmi.objectives) ' + ('werden übertragen.' if 'cmi.objectives' in alles else 'werden nicht übertragen (optional).'), gelb=True)
     punkt('cmi.interactions' in alles, 'Datenübergabe', 'Ergebnisse je Frage (cmi.interactions) ' + ('werden übertragen.' if 'cmi.interactions' in alles else 'werden nicht übertragen (optional, aber nötig für die Auswertung je Frage).'), gelb=True)
+    medien = re.findall(r'<(audio|video)\b', alles, re.I)
+    if medien:
+        text_da = re.search(r'<track\b|transkript|untertitel', alles, re.I)
+        punkt(bool(text_da), 'Barrierefreiheit', 'Ton/Video vorhanden ' + ('mit Hinweis auf Untertitel oder Transkript.' if text_da else 'ohne erkennbare Untertitel oder Transkript – Gesprochenes muss auch als Text verfügbar sein.'), gelb=True)
     for kw in ['alert(', 'confirm(', 'prompt(']:
         if re.search(r'(?<![\w.])' + re.escape(kw), alles):
             punkt(False, 'Bedienung', f'{kw[:-1]}-Dialog im Code gefunden; Dialoge blockieren in manchen Lernplattformen.', gelb=True)
@@ -168,13 +175,14 @@ def browser(root, href, bilder):
         if bilder:
             os.makedirs(bilder, exist_ok=True)
         if not vorlage:
-            punkt(False, 'Test', 'Paket stammt nicht aus der PING-Vorlage: nur Laden, Anmeldung und Darstellung geprüft. Aufgaben bitte von Hand durchspielen.', gelb=True)
+            punkt(False, 'Test', 'Paket stammt nicht aus der Kompass-Vorlage: nur Laden, Anmeldung und Darstellung geprüft. Aufgaben bitte von Hand durchspielen.', gelb=True)
             if bilder:
                 pg.screenshot(path=os.path.join(bilder, 'start.png'), full_page=True)
             _schmal(ctx, url, bilder, None)
         else:
             _vorlage(pg, bilder)
             _schmal(ctx, url, bilder, True)
+            _tafel(ctx, url, bilder)
         echte = [f for f in fehler if 'favicon' not in f]
         punkt(not echte, 'Technik', 'Keine Fehler in der Browser-Konsole.' if not echte else 'Konsolenfehler: ' + ' | '.join(echte[:5]))
         b.close()
@@ -195,6 +203,9 @@ def _vorlage(pg, bilder):
     punkt(not pi['fehler'], 'Inhalt', 'Inhaltsprüfung der Vorlage: keine Fehler.' if not pi['fehler'] else 'Inhaltsfehler: ' + '; '.join(pi['fehler'][:8]))
     for h in pi['hinweise'][:12]:
         punkt(False, 'Inhalt', 'Hinweis: ' + h, gelb=True)
+    ver = pg.evaluate("(() => { const v = document.getElementById('version'); if (!v) return null; const r = v.getBoundingClientRect(); return {text: v.textContent.trim(), sichtbar: r.width > 0 && r.height > 0 && r.top >= 0 && r.bottom <= innerHeight}; })()")
+    punkt(bool(ver and ver['text'] and ver['sichtbar']), 'Bedienung',
+          f'Versionsnummer „{ver["text"]}“ steht sichtbar in der Kopfzeile.' if ver and ver['text'] and ver['sichtbar'] else 'Keine sichtbare Versionsnummer in der Kopfzeile (PAKET.version setzen).')
     info = pg.evaluate('({st: PAKET.stationen.map(s => s.id), ue: (PAKET.uebungen||[]).map(u => u.id), a: !!(PAKET.nachweis && PAKET.nachweis.teilA)})')
     ansichten = []
     if bilder:
@@ -293,6 +304,72 @@ def _schmal(ctx, url, bilder, vorlage):
             pg.screenshot(path=os.path.join(bilder, f'schmal-{w}.png'), full_page=False)
         punkt(not zu_breit, 'Bedienung', f'{name} ({w}px): ' + (('kein seitliches Scrollen, Weiter-Knopf sichtbar.' if vorlage else 'kein seitliches Scrollen auf der Startseite.') if not zu_breit else 'Probleme: ' + ', '.join(zu_breit)), gelb=name == 'Handy')
         pg.close()
+
+
+def _tafel(ctx, url, bilder):
+    pg = ctx.new_page()
+    pg.set_viewport_size({'width': 1600, 'height': 900})  # Beamer
+    fehler = []
+    pg.on('pageerror', lambda e: fehler.append(str(e)))
+    pg.on('console', lambda m: fehler.append(m.text) if m.type == 'error' else None)
+    pg.goto(url)
+    pg.wait_for_timeout(500)
+    if not pg.evaluate('!!(window.PAKET && PAKET.tafel)'):
+        pg.close()
+        return
+    if not pg.evaluate('!!window.TAFEL'):
+        punkt(False, 'Tafelbild', 'PAKET.tafel ist gesetzt, aber js/tafel.js ist nicht eingebunden.')
+        pg.close()
+        return
+    schreib = "window.__scorm.calls.filter(c => c[0] === 'LMSSetValue').length"
+    vor = pg.evaluate(schreib)
+    zugang = pg.locator('.kopf .tafel-knopf').count() == 1 and pg.locator('#haupt .tafel-hinweis').count() == 1
+    punkt(zugang, 'Tafelbild', 'Zugänge vorhanden: Knopf „Tafelbild“ in der Kopfzeile und Hinweis auf der Startseite.' if zugang else 'Knopf in der Kopfzeile oder Hinweis auf der Startseite fehlt.')
+    pg.evaluate('TAFEL.oeffnen({})')
+    pg.wait_for_timeout(200)
+    n = pg.evaluate('TAFEL.zustand().anzahl')
+    leer, breit = [], []
+    for i in range(n):
+        pg.evaluate(f'TAFEL.szene({i})')
+        pg.wait_for_timeout(150)
+        if pg.evaluate("document.querySelector('.tafel-szene').children.length") == 0:
+            leer.append(str(i + 1))
+        if bilder:
+            pg.screenshot(path=os.path.join(bilder, f'tafel-{i + 1}.png'))
+        for k in range(pg.locator('.tafel-werkzeuge button').count()):
+            b = pg.locator('.tafel-werkzeuge button').nth(k)
+            if b.is_enabled():
+                b.click()
+                pg.wait_for_timeout(60)
+        if pg.evaluate('document.documentElement.scrollWidth') > 1601:
+            breit.append(str(i + 1))
+    punkt(not leer, 'Tafelbild', f'{n} Szenen; alle zeichnen etwas, alle Werkzeuge einmal ausgelöst.' if not leer else 'Szenen ohne Inhalt: ' + ', '.join(leer))
+    if n > 8:
+        punkt(False, 'Tafelbild', f'{n} Szenen – für etwa 20 Minuten sind höchstens 6–8 sinnvoll.', gelb=True)
+    pg.evaluate('TAFEL.szene(0)')
+    pg.locator('.tafel').focus()
+    pg.keyboard.press('ArrowRight')
+    tasten = n < 2 or pg.evaluate('TAFEL.zustand().szene') == 1
+    pg.keyboard.press('Escape')
+    pg.wait_for_timeout(100)
+    tasten = tasten and not pg.evaluate('TAFEL.zustand().offen')
+    punkt(tasten, 'Tafelbild', 'Bedienung per Tastatur (Pfeiltaste, Esc) funktioniert.')
+    nach = pg.evaluate(schreib)
+    punkt(vor == nach, 'Datenübergabe', 'Tafelbild schreibt nichts an die Lernplattform.' if vor == nach else f'Tafelbild hat {nach - vor} SCORM-Werte geschrieben – es darf nichts speichern.')
+    pg2 = ctx.new_page()
+    pg2.set_viewport_size({'width': 768, 'height': 1024})
+    pg2.goto(url + '#tafel')
+    pg2.wait_for_timeout(500)
+    z = pg2.evaluate('window.TAFEL && TAFEL.zustand()') or {}
+    ok = bool(z.get('offen')) and z.get('praesentation') and not z.get('erklaerungen')
+    punkt(ok, 'Tafelbild', 'index.html#tafel startet die Präsentation ohne Erklärungen.' if ok else 'index.html#tafel öffnet die Präsentation nicht richtig.')
+    if pg2.evaluate('document.documentElement.scrollWidth') > 769:
+        breit.append('Tablet')
+    pg2.close()
+    punkt(not breit, 'Tafelbild', 'Kein seitliches Scrollen (Beamer 1600 px, Tablet 768 px).' if not breit else 'Seitliches Scrollen in: ' + ', '.join(breit), gelb=True)
+    echte = [f for f in fehler if 'favicon' not in f]
+    punkt(not echte, 'Tafelbild', 'Keine Konsolenfehler beim Durchschalten.' if not echte else 'Konsolenfehler: ' + ' | '.join(echte[:5]))
+    pg.close()
 
 
 def main():

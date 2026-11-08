@@ -1,22 +1,30 @@
 # Gestaltungsleitfaden
 
-Überprüfbare Regeln für Seiten, Aufgaben, Rückmeldung und Simulationen. Sie setzen vor allem P2–P7, P9, P12 und G1–G6 um (`prinzipien.md`). Die PING-Vorlage (`vorlage/`) erfüllt viele davon schon; bei eigenen Lösungen gelten sie genauso.
+Überprüfbare Regeln für Seiten, Aufgaben, Rückmeldung und Simulationen. Sie setzen vor allem P2–P7, P9, P12 und G1–G6 um (`prinzipien.md`). Die Kompass-Vorlage (`vorlage/`) erfüllt viele davon schon; bei eigenen Lösungen gelten sie genauso.
 
-Inhaltliche Grundlage: PING-Leitfaden Teil C3 (Bezug: PING v1.3) und die Bausteine aus Jürgens ITS11-Lernmodulen und dem Docker-Test (Rückmeldungen 2026-10).
+Inhaltliche Grundlage: Leitfaden des Lernpaket-Kompass, Teil C3 (Bezug: Lernpaket-Kompass v1.2) und die Bausteine aus Jürgens ITS11-Lernmodulen und dem Docker-Test (Rückmeldungen 2026-10).
 
 ## Seite und Darstellung
 
-- Nur, was dem Lernziel dient: keine Deko-Bilder, keine Hintergrundmusik, keine „interessanten Nebenfakten“.
+- Wort und Bild zusammen: Zu jeder Erklärung eine passende Grafik oder Skizze, die zum Inhalt passt (nicht zu einem angeblichen Lerntyp).
+- Nur, was dem Lernziel dient: keine Deko-Bilder, keine Hintergrundmusik, keine „interessanten Nebenfakten“ („verführerische Details“ ziehen Aufmerksamkeit vom Wesentlichen ab). Ein witziges Bild passt in den Einstieg, nicht mitten in die Erklärung.
 - Wichtiges hervorheben (Schlüsselbegriffe fett, Pfeil oder Rahmen genau auf die Stelle), Farben sparsam und im ganzen Material mit gleicher Bedeutung.
 - Beschriftung direkt ans Bild statt Legende; Erklärung und Grafik gleichzeitig sichtbar. Bild vor dem zugehörigen Text.
 - Alles, was eine Aufgabe braucht (Auftrag, Bild oder Konsole, Eingabe, benötigte Infos), ist gleichzeitig sichtbar, ohne Scrollen, Umschalten oder Pop-up; bei Platzmangel eine aufklappbare Seitenleiste.
 - Inhalte in kleine Schritte teilen, die Lernende selbst weiterklicken; sichtbarer Text kurz (2–5 Sätze), Ausführliches aufklappbar.
-- Fachbegriffe kurz einführen, bevor sie in einem komplexen Ablauf auftauchen.
+- Fachbegriffe kurz einführen, bevor sie in einem komplexen Ablauf auftauchen; alle in einem jederzeit erreichbaren Glossar, die wichtigsten am Anfang vorstellen (Vortraining).
+- Zum Mitdenken auffordern, nicht nur zum Lesen: im Lösungsbeispiel eine Frage zum Selbsterklären („Warum ist dieser Schritt nötig?“), erst überlegen, dann Begründung aufklappen; nach Stationen und Übungen regelmäßig ein kurzer Auftrag zum Skizzieren, Zusammenfassen oder Erklären für andere, mit Muster.
 - Für Einsteiger einfache Skizzen statt Fotos oder realistischer Animationen.
-- Text nicht gleichzeitig vorlesen und anzeigen; Ton ist optional.
+- Text nicht gleichzeitig vorlesen und anzeigen; Ton ist optional (Ausnahme siehe „Sprache und Inklusion“).
 - Persönlich und direkt ansprechen („du“ bzw. „Sie“), nicht im Lehrbuchton; Ansprache durch eine Figur optisch vom Lernstoff abheben (z. B. Sprechblase).
 - Den Praxisbezug ausdrücklich nennen; signalisieren, dass die Aufgabe Anstrengung verlangt, aber zu schaffen ist.
 - Auf dem Zielgerät prüfen, besonders auf dem Tablet.
+
+## Sprache und Inklusion
+
+- Gesprochenes ist nie die einzige Quelle: Wo Ton eingesetzt wird, gibt es Untertitel oder Transkript. Information nie nur über Ton oder nur über Farbe.
+- Für Lernende, die noch Deutsch lernen, dürfen Untertitel zusätzlich zum Ton laufen; das Verstehen der Sprache wiegt hier schwerer als das Redundanzprinzip.
+- Kurze Sätze, geläufige Wörter, eine Information pro Satz. Fachbegriffe bleiben, werden aber erklärt (Glossar).
 
 ## Orientierung: Wo geht es weiter?
 
@@ -58,6 +66,16 @@ Tipps werden aktiv angefordert, zählen im Üben nicht gegen die Lernenden und v
 
 - Rahmengeschichte mit wiederkehrenden Figuren ist erwünscht; Figuren und Welt wählt die Lehrkraft bzw. die Materialreihe.
 - Punkte, Abzeichen, Zeitdruck nur mit Lernfunktion; keine Ranglisten – Fortschritt an Lernzielen oder an der eigenen früheren Leistung.
+
+## Input mit Tafelbild (optional)
+
+Ein freiwilliger Lehrer-Input von etwa 20 Minuten lohnt sich, wenn sich das Thema gut gemeinsam vorführen lässt (Simulation, Ablauf, Vergleich). Nicht jedes Material braucht ihn.
+
+- **Einstieg, nicht Ersatz:** Wer nicht teilnimmt, verpasst nichts; das Material bleibt allein vollständig. Das Tafelbild zeigt nichts, was im Material fehlt, jede Szene verweist auf ihre Station, mindestens eine Frage bleibt bewusst offen.
+- **Ohne erklärenden Text:** groß, Schritt für Schritt, nur Beschriftungen, Zahlen, Symbole; die Lehrkraft erklärt mündlich. Für Lernende, die es selbst öffnen, sind kurze Erklärungen zuschaltbar.
+- **Je Szene** Vorhersagen → Klicken → Deuten; höchstens etwa sechs Szenen, die letzte sichert das Ergebnis.
+- Das Tafelbild speichert nichts und verändert weder Fortschritt noch Ergebnis.
+- Dazu gehört ein **Ablaufplan** für die Lehrkraft (`templates/INPUT-ABLAUF.md`): je Szene Zeit, Klicks, Impulsfrage, erwartete Fehlvorstellung, Merksatz; alle Zahlen darin mit Code gegen das Material nachrechnen.
 
 ## Simulationen (Konsole, Web-Anwendung)
 

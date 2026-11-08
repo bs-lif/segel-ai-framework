@@ -2,7 +2,7 @@
 
 Diese Standards gelten für jedes Material, unabhängig von Materialart und Technik. Die Abnahme prüft sie immer. Wie sie bei einem SCORM-Paket konkret aussehen, beschreibt `scorm-paket.md`; Begründungen stehen in `lernforschung.md`.
 
-- **P1–P13** sind die Prinzipien aus dem PING-Leitfaden (Bezug: PING v1.3), Nummerierung bewusst gleich, damit Prüfberichte vergleichbar bleiben. In eigenen Worten und für alle Materialarten verallgemeinert.
+- **P1–P13** sind die Prinzipien aus dem Leitfaden des Lernpaket-Kompass (Bezug: Lernpaket-Kompass v1.2, früher PING), Nummerierung bewusst gleich, damit Prüfberichte vergleichbar bleiben. In eigenen Worten und für alle Materialarten verallgemeinert.
 - **G1–G6** sind Grundsätze aus der Arbeit mit dem Framework, die die Prinzipien ergänzen.
 - **Muss** gilt immer. **Soll** gilt, wenn Thema, Materialart und Zeit es zulassen; ein Verzicht wird in `STATUS.md` begründet.
 
@@ -12,7 +12,7 @@ Diese Standards gelten für jedes Material, unabhängig von Materialart und Tech
 |---|---|---|---|---|
 | P1 | Eine realistische Handlungssituation trägt das ganze Material | Muss | Berufliche oder lebensweltliche Situation mit Auftrag, ggf. wiederkehrende Figur; jede Aufgabe beginnt mit einem Auftrag daraus; Berufsbezug wird genannt („Wozu brauchst du das?“) | Bezieht sich jede Aufgabe auf die Situation, und ist der Praxisbezug ausdrücklich genannt? |
 | P2 | Vom Einfachen zum Schweren, Hilfe wird schrittweise weniger | Muss | Zeigen → begleitet üben (drei gestufte Tipps) → selbstständig können (ohne Tipps); Situationen wechseln | Nimmt die Hilfe ab, hat jede Übung gestufte Tipps, wechseln die Situationen? |
-| P3 | Erst vormachen: Lösungsbeispiele | Muss | Vor jedem neuen Aufgabentyp ein vollständig gelöstes Beispiel mit Begründung je Schritt, für Könner überspringbar | Gibt es vor jedem neuen Aufgabentyp ein begründetes, überspringbares Lösungsbeispiel? |
+| P3 | Erst vormachen: Lösungsbeispiele | Muss | Vor jedem neuen Aufgabentyp ein vollständig gelöstes Beispiel mit Begründung je Schritt und einer Frage zum Selbsterklären an einem entscheidenden Schritt, für Könner überspringbar; zusätzlich regelmäßig Aufträge zum Skizzieren, Zusammenfassen oder Erklären | Gibt es vor jedem neuen Aufgabentyp ein begründetes, überspringbares Lösungsbeispiel mit Frage zum Selbsterklären? |
 | P4 | Entdecken nur mit Anleitung | Muss | Jede Erkundung hat Auftrag, Leitfrage und Rückmeldung | Hat jede Erkundung Auftrag, Leitfrage und Rückmeldung nach jedem Versuch? |
 | P5 | Abfragen statt nochmal lesen | Muss | Kurz-Check (3–5 Fragen, ohne Note, als „zählt nicht“ markiert) je Kapitel bzw. Abschnitt | Endet jeder Abschnitt mit einem unbewerteten Kurz-Check? |
 | P6 | Rückmeldung, die erklärt | Muss | Zu jeder Antwort: richtig/falsch, warum, nächster Schritt; typische Fehlvorstellungen bekommen eigenes Feedback; kein Lob ohne Information | Erklärt jedes Feedback, und haben typische Fehler ein eigenes? |
@@ -23,6 +23,8 @@ Diese Standards gelten für jedes Material, unabhängig von Materialart und Tech
 | P11 | Selbstständiges Lernen anleiten statt voraussetzen | Muss | Selbsteinschätzung je Ziel vorher und nachher, Fortschrittsanzeige, Reflexionsfrage mit Musterantwort, Empfehlung „Was als Nächstes?“; im SeGeL-Rahmen: Guide, Checkliste, Selbstüberprüfung | Wird Selbststeuerung angeleitet (Einschätzung, Fortschritt, Reflexion, Empfehlung)? |
 | P12 | Spielelemente gezielt einsetzen | Soll | Rahmengeschichte ja; Fortschritt an Lernzielen statt Punkten; keine Ranglisten | Haben Spielelemente eine Lernfunktion, und gibt es keine Ranglisten? |
 | P13 | Ergebnisse sichern: Merkblatt selbst ergänzen | Soll | Halb vorgefülltes Merkblatt je Lernziel erst nach dem Abschlusscheck: aus dem Gedächtnis ergänzen, mit Muster vergleichen, mit Selbsttest-Fragen zum späteren Wiederholen; gehört ins Lernportfolio | Gibt es nach dem Abschlusscheck ein Merkblatt zum Ergänzen mit Selbsttest? |
+
+**Faustregeln, keine Gesetze.** Die Prinzipien wirken je nach Vorwissen (Expertise-Umkehr) und Lernenden unterschiedlich. Für Inklusion und Deutsch als Zweitsprache gilt zusätzlich: Gesprochenes immer auch als Text, für Lernende, die Deutsch lernen, dürfen Untertitel trotz Redundanzprinzip mitlaufen; Glossar und einfache Sätze (Regeln in `gestaltung.md`).
 
 **Querschnitt: iterativ entwickeln.** Kein Prinzip ersetzt die Erprobung: früher Prototyp, Schülerdurchlauf (simuliert und echt), Auswertung nach dem Einsatz.
 

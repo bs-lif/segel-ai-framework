@@ -8,7 +8,7 @@ Schritt 1 – Datenschutz: Spalten mit Namen, E-Mail, Benutzerkennung o. Ä. wer
 entfernt und nicht weiterverarbeitet. Mit --anonym wird die bereinigte Tabelle gespeichert.
 Schritt 2 – Auswertung (soweit die Daten es hergeben):
   * je Frage: Lösungsquote, Anzahl, häufigste falsche Antworten (Ablenker-Analyse);
-    Fragen-IDs der PING-Vorlage haben die Form N<Versuch>_<Frage-ID>, z. B. N2_F07;
+    Fragen-IDs der Kompass-Vorlage haben die Form N<Versuch>_<Frage-ID>, z. B. N2_F07;
   * je Lernziel (cmi.objectives, Spaltenwerte LZ1, LZ2 …): mittlerer Prozentwert;
   * Gesamtbewertung: Verteilung, Bestehensquote.
 Markierungen: Lösungsquote unter 40 % = „schwer“ (Frage oder Station prüfen),
@@ -17,7 +17,7 @@ nach Bericht; das Skript sucht die Werte deshalb anhand ihres Inhalts, nicht nur
 """
 import argparse, collections, csv, io, json, os, re, shutil, statistics, subprocess, sys
 
-# Anpassung gegenüber PING v1.3: UTF-8-Ausgabe, damit Umlaute und Ampel-Symbole unter Windows nicht abbrechen.
+# Anpassung gegenüber Lernpaket-Kompass v1.2: UTF-8-Ausgabe, damit Umlaute und Ampel-Symbole unter Windows nicht abbrechen.
 if hasattr(sys.stdout, 'reconfigure'):
     sys.stdout.reconfigure(encoding='utf-8')
 
